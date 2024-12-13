@@ -1,2 +1,2 @@
 ## Uno Game
-- Uno game built with java using JAVA.
+- Uno game built using JAVA.
