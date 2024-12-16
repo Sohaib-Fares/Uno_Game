@@ -1,4 +1,4 @@
 package App.PlayerModel;
 
-public class BotPlayer {
+public class BotPlayer extends Player {
 }
