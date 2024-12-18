@@ -7,12 +7,12 @@ import App.CardModel.AbstractCard;
 public class HumanPlayer extends Player {
 
     public void showHand() {
-        System.out.println(name + "'s hand: " + hand);
+        System.out.println(getName() + "'s hand: " + hand);
     }
 
     public ArrayList<AbstractCard> CheckPossibleCards(AbstractCard TopCard, ArrayList<AbstractCard> isplayble) {
         for(AbstractCard i : hand) {
-            if(i.IsPlayable(TopCard)) {
+            if(i.isPlayable(TopCard)) {
                 isplayble.add(i);
             }
         }

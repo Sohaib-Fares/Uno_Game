@@ -4,20 +4,22 @@ import App.CardModel.AbstractCard;
 
 public class BotPlayer extends Player {
 
-    public  Boolean HasPlayableCard(AbstractCard CurrentCard){        
+    public  Boolean hasPlayableCard(AbstractCard CurrentCard){
         for (AbstractCard i : hand){
-        if(i.IsPlayable(CurrentCard)){
-        return true ;}     
+            if(i.isPlayable(CurrentCard)){
+                return true ;
+            }
         }
-        return false;}
+        return false;
+    }
 
-    public void PlayCard(Deck Deck1, AbstractCard CurrentCard){
-        int j=0;
-        for (AbstractCard i : hand){
-            if(i.IsPlayable(CurrentCard))
-            Deck1.add(i);
-            hand.remove(j);
-            j++;
-          }
-
-}}
+    public AbstractCard playCard(AbstractCard CurrentCard) {
+        for (AbstractCard i : hand) {
+            if (i.isPlayable(CurrentCard)) {
+                hand.remove(i);
+            }
+                return i;
+            }
+        return null;
+        }
+    }
