@@ -2,16 +2,22 @@ package App.Deck;
 
 import App.CardModel.*;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
+import java.util.NoSuchElementException;
+
 
 public class Deck {
+
     private ArrayList<AbstractCard> cards;
 
     public Deck() {
         cards = new ArrayList<>();
         initializeDeck();
+        if (cards.isEmpty()) {
+            System.err.println("Empty!");
+        }
         shuffle();
     }
 
@@ -49,30 +55,15 @@ public class Deck {
         }
     }
 
-
-    public void shuffle() {
+    public void shuffle(){
         Collections.shuffle(cards);
     }
 
-    public ArrayList<AbstractCard> getCards() {
-        return cards;
+    public AbstractCard drawCard() {
+        if (cards.isEmpty()) {
+            throw new NoSuchElementException("The deck is empty.");
+        }
+        return cards.remove(0);
     }
 
-    public void setCards(ArrayList<AbstractCard> cards) {
-        this.cards = cards;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(cards);
-    }
-
-    @Override
-    public String toString() {
-        return "Deck{" +
-                "cards=" + cards +
-                '}';
-    }
 }
-
-
