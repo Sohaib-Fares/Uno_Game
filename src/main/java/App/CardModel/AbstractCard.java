@@ -17,7 +17,7 @@ public abstract class AbstractCard {
         return color;
     }
 
-    public abstract boolean equals(Object o);
+    public abstract boolean isPlayable(Object o);
 
     public abstract int hashCode();
 

@@ -1,5 +1,7 @@
 package App.CardModel;
 
+import java.util.Objects;
+
 public class ActionCard extends AbstractCard {
 
 
@@ -8,17 +10,23 @@ public class ActionCard extends AbstractCard {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return false;
+    public boolean isPlayable(Object o) {
+        if (Objects.isNull(o)) {
+            return false;
+        }
+        ActionCard actionCard = (ActionCard) o;
+        return getColor() == actionCard.getColor();
+
     }
 
-    @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(getType(), getColor());
     }
 
     @Override
     public String toString() {
-        return "";
+        return "ActionCard{" +
+                getType() + ", " + getColor() +
+                '}';
     }
 }

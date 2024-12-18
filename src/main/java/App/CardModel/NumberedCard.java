@@ -16,11 +16,13 @@ public class NumberedCard extends AbstractCard {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NumberedCard that = (NumberedCard) o;
-        return value == that.value && getColor() == that.getColor();
+    public boolean isPlayable(Object o) {
+        if (Objects.isNull(o)) {
+            return false;
+        }
+        NumberedCard numberedCard = (NumberedCard) o;
+        return getColor() == numberedCard.getColor() || getValue() == numberedCard.getValue();
+
     }
 
     public int hashCode() {
@@ -29,6 +31,8 @@ public class NumberedCard extends AbstractCard {
 
     @Override
     public String toString() {
-        return "";
+        return "NumberedCard{" +
+                "Value=" + value +", " + getColor() +
+                '}';
     }
 }

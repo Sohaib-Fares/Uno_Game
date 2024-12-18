@@ -4,13 +4,20 @@ import java.util.Objects;
 
 public class WildCard extends AbstractCard {
 
-    public WildCard(String type, String color) {
+    private CardColor chosenColor;
+
+    public WildCard(CardType type, CardColor color) {
         super(type, color);
     }
 
     @Override
-    public boolean equals(Object o) {
-        return false;
+    public boolean isPlayable(Object o) {
+        if (Objects.isNull(o)) {
+            return false;
+        }
+            WildCard wildCard = (WildCard) o;
+            return getColor() == wildCard.getColor();
+
     }
 
     @Override
@@ -20,7 +27,7 @@ public class WildCard extends AbstractCard {
 
     @Override
     public String toString() {
-        return "ActionCard{" +
+        return "WildCard{" +
                 getType() + ", " + getColor() +
                 '}';
     }
