@@ -27,9 +27,9 @@ public class WildCard extends AbstractCard {
 
     @Override
     public String toString() {
-        return "WildCard{" +
+        return "[WildCard, " +
                 getType() + ", " + getColor() +
-                '}';
+                " ]";
     }
 
 }

@@ -4,9 +4,11 @@ import App.CardModel.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Deck {
     private ArrayList<AbstractCard> cards;
+
     public Deck() {
         cards = new ArrayList<>();
         initializeDeck();
@@ -48,8 +50,29 @@ public class Deck {
     }
 
 
-        public void shuffle(){
+    public void shuffle() {
         Collections.shuffle(cards);
     }
 
+    public ArrayList<AbstractCard> getCards() {
+        return cards;
+    }
+
+    public void setCards(ArrayList<AbstractCard> cards) {
+        this.cards = cards;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(cards);
+    }
+
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "cards=" + cards +
+                '}';
+    }
 }
+
+

@@ -25,8 +25,8 @@ public class ActionCard extends AbstractCard {
 
     @Override
     public String toString() {
-        return "ActionCard{" +
+        return "[ActionCard, " +
                 getType() + ", " + getColor() +
-                '}';
+                " ]";
     }
 }

@@ -31,8 +31,8 @@ public class NumberedCard extends AbstractCard {
 
     @Override
     public String toString() {
-        return "NumberedCard{" +
-                "Value=" + value +", " + getColor() +
-                '}';
+        return "[NumberedCard, " +
+                value +", " + getColor() +
+                " ]";
     }
 }
