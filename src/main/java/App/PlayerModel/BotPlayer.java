@@ -4,6 +4,10 @@ import App.CardModel.AbstractCard;
 
 public class BotPlayer extends Player {
 
+    public BotPlayer(String name) {
+        super(name);
+    }
+
     public  Boolean hasPlayableCard(AbstractCard CurrentCard){
         for (AbstractCard i : hand){
             if(i.isPlayable(CurrentCard)){
