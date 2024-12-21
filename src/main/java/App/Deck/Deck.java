@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 public class Deck {
 
-    private ArrayList<AbstractCard> cards;
+    final private ArrayList<AbstractCard> cards;
 
     public Deck() {
         cards = new ArrayList<>();
@@ -66,4 +66,14 @@ public class Deck {
         return cards.remove(0);
     }
 
+    public ArrayList<AbstractCard> getRemainingCards() {
+        return new ArrayList<>(cards);
+    }
+
+    @Override
+    public String toString() {
+        return "Deck[" +
+                "cards=" + cards +
+                ']';
+    }
 }

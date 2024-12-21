@@ -2,16 +2,20 @@ package App.PlayerModel;
 
 import java.util.ArrayList;
 import App.CardModel.AbstractCard;
-import App.Deck.Deck;
 
 
 public abstract class Player {
-private String name;
-ArrayList<AbstractCard> hand = new ArrayList<>();
 
-    public boolean HasCard(){
-        return !hand.isEmpty();
-    }
+private String name;
+ArrayList<AbstractCard> hand;
+
+public Player(String name) {
+    this.name = name;
+}
+
+public boolean HasCard() {
+    return !hand.isEmpty();
+}
 
 public String getName() {
     return name;
@@ -25,6 +29,8 @@ public ArrayList<AbstractCard> getHand() {
 public void setHand(ArrayList<AbstractCard> Hand) {
     hand = Hand;
 }
+
+@Override
 public String toString() {
     return name;
 }

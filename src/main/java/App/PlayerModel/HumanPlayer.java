@@ -6,6 +6,10 @@ import App.CardModel.AbstractCard;
 
 public class HumanPlayer extends Player {
 
+    public HumanPlayer(String name) {
+        super(name);
+    }
+
     public void showHand() {
         System.out.println(getName() + "'s hand: " + hand);
     }
