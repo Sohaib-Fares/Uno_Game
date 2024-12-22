@@ -73,10 +73,4 @@ public class Deck {
         return new ArrayList<>(cards);
     }
 
-    @Override
-    public String toString() {
-        return "Deck[" +
-                "cards=" + cards +
-                ']';
-    }
 }
