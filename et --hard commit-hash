@@ -1,0 +1,27 @@
+[33mbc1d50a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mSohaib/game[m[33m)[m HEAD@{0}: checkout: moving from main to Sohaib/game
+[33m0e7b3ff[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{1}: checkout: moving from Sohaib/game to main
+[33mbc1d50a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mSohaib/game[m[33m)[m HEAD@{2}: checkout: moving from Imad/GameService to Sohaib/game
+[33m17c6c12[m[33m ([m[1;32mImad/GameService[m[33m)[m HEAD@{3}: checkout: moving from Sohaib/game to Imad/GameService
+[33mbc1d50a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mSohaib/game[m[33m)[m HEAD@{4}: commit: remove unnecessary classes
+[33m4c608c2[m HEAD@{5}: commit: Remove unnecessary classes
+[33m17c6c12[m[33m ([m[1;32mImad/GameService[m[33m)[m HEAD@{6}: checkout: moving from Imad/GameService to Sohaib/game
+[33m17c6c12[m[33m ([m[1;32mImad/GameService[m[33m)[m HEAD@{7}: pull origin main: Fast-forward
+[33m316b047[m[33m ([m[1;31morigin/Imad/GameService[m[33m)[m HEAD@{8}: checkout: moving from cards-dev to Imad/GameService
+[33m42b3db9[m[33m ([m[1;32mlookup[m[33m, [m[1;32mcards-dev[m[33m)[m HEAD@{9}: checkout: moving from Imad/GameService to cards-dev
+[33m316b047[m[33m ([m[1;31morigin/Imad/GameService[m[33m)[m HEAD@{10}: checkout: moving from lookup to Imad/GameService
+[33m42b3db9[m[33m ([m[1;32mlookup[m[33m, [m[1;32mcards-dev[m[33m)[m HEAD@{11}: reset: moving to HEAD
+[33m42b3db9[m[33m ([m[1;32mlookup[m[33m, [m[1;32mcards-dev[m[33m)[m HEAD@{12}: checkout: moving from cards-dev to lookup
+[33m42b3db9[m[33m ([m[1;32mlookup[m[33m, [m[1;32mcards-dev[m[33m)[m HEAD@{13}: commit: game methods update
+[33md152a88[m HEAD@{14}: pull origin main: Fast-forward
+[33m275b216[m[33m ([m[1;31morigin/cards-dev[m[33m)[m HEAD@{15}: commit: add the GameLogic and StartGame classes with main methods
+[33m95f13ee[m HEAD@{16}: commit (merge): fix typos and logical issues
+[33me8098f1[m HEAD@{17}: commit: update to string method for the display
+[33m0e7b3ff[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{18}: checkout: moving from main to cards-dev
+[33m0e7b3ff[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{19}: commit: Initial commit
+[33m35175cf[m HEAD@{20}: commit: Add some necessary methods to CardsClasses
+[33m61d4649[m HEAD@{21}: commit: Add main methods the certain classes
+[33m5f15edb[m HEAD@{22}: commit: Initial commit
+[33ma2590e5[m HEAD@{23}: commit: Initial commit
+[33m0e45df6[m HEAD@{24}: commit: Initial commit
+[33mf0ccf4d[m HEAD@{25}: reset: moving to origin/main
+[33mf0ccf4d[m HEAD@{26}: commit (initial): initial commit
