@@ -2,11 +2,9 @@ package App.Deck;
 
 import App.CardModel.*;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
-
 
 public class Deck {
 
@@ -55,7 +53,7 @@ public class Deck {
         }
     }
 
-    public void shuffle(){
+    public void shuffle() {
         Collections.shuffle(cards);
     }
 
@@ -64,6 +62,11 @@ public class Deck {
             throw new NoSuchElementException("The deck is empty.");
         }
         return cards.remove(0);
+    }
+    // TODO: Used for tests only, MUST-REMOVE in the end
+    @Override
+    public String toString() {
+        return cards.toString();
     }
 
     public ArrayList<AbstractCard> getRemainingCards() {
