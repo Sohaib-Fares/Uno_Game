@@ -12,6 +12,8 @@ ArrayList<AbstractCard> hand;
 public Player(String name) {
     this.name = name;
 }
+public Player() {
+}
 
 public boolean HasCard() {
     return !hand.isEmpty();

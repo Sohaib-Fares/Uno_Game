@@ -4,6 +4,9 @@ import App.CardModel.AbstractCard;
 
 public class BotPlayer extends Player {
 
+    public BotPlayer() {
+    }
+
     public BotPlayer(String name) {
         super(name);
     }

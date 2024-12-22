@@ -6,6 +6,9 @@ import App.CardModel.AbstractCard;
 
 public class HumanPlayer extends Player {
 
+    public HumanPlayer() {
+    }
+
     public HumanPlayer(String name) {
         super(name);
     }
