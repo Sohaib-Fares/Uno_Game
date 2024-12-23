@@ -7,7 +7,7 @@ import App.CardModel.AbstractCard;
 public abstract class Player {
 
 private String name;
-ArrayList<AbstractCard> hand;
+protected ArrayList<AbstractCard> hand;
 
 public Player(String name) {
     this.name = name;
