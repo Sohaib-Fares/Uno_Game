@@ -1,6 +1,6 @@
-package App.PlayerModel;
+package AppTools.PlayerModel;
 
-import App.CardModel.AbstractCard;
+import AppTools.CardModel.AbstractCard;
 
 public class BotPlayer extends Player {
 
@@ -21,11 +21,11 @@ public class BotPlayer extends Player {
     }
 
     public AbstractCard playCard(AbstractCard CurrentCard) {
-        for (AbstractCard i : hand) {
-            if (i.isPlayable(CurrentCard)) {
-                hand.remove(i);
+        for (AbstractCard card : hand) {
+            if (card.isPlayable(CurrentCard)) {
+                hand.remove(card);
             }
-                return i;
+                return card;
             }
         return null;
         }

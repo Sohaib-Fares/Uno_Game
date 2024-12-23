@@ -1,18 +1,27 @@
-package App.Game;
+package AppTools.Game;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import App.Deck.Deck;
-import App.Game.Screens.PlayerSetupScreen;
-import App.Game.Screens.HowToPlayScreen;
-import App.Game.Screens.WelcomeScreen;
-import App.OurUtils.Utils;
-import App.PlayerModel.Player;
+import AppTools.CardModel.AbstractCard;
+import AppTools.Deck.Deck;
+import AppTools.Game.Screens.PlayerSetupScreen;
+import AppTools.Game.Screens.HowToPlayScreen;
+import AppTools.Game.Screens.WelcomeScreen;
+import AppTools.OurUtils.Utils;
+import AppTools.PlayerModel.BotPlayer;
+import AppTools.PlayerModel.HumanPlayer;
+import AppTools.PlayerModel.Player;
+
+import javax.swing.*;
 
 public class GameService {
     private Deck deck = new Deck();
+    private ArrayList<AbstractCard> discardPile = new ArrayList<>();
+    private ArrayList<Player> players;
+    private Player currentPlayer;
+    private AbstractCard currentCard;
 
     public void showGameMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -42,7 +51,7 @@ public class GameService {
             switch (choice) {
                 case 1 -> {
                     System.out.println("Starting the game...");
-                    ArrayList<Player> players = PlayerSetupScreen.setupPlayers(deck, scanner);
+                    players = PlayerSetupScreen.setupPlayers(deck, scanner);
                     System.out.println("Game setup complete! Here are the players:");
                     players.forEach(player -> System.out.println(player));
 
@@ -52,7 +61,9 @@ public class GameService {
                     HowToPlayScreen.showHowToPlay();
                     Utils.pauseForUser();
                 }
-                case 3 -> System.out.println("Thank you for playing JavUno ♥");
+                case 3 -> {
+                    System.out.println("Thank you for playing JavUno ♥");
+                }
                 default -> {
                     System.out.println("Invalid choice. Please select an option from the menu.");
                     Utils.pauseForUser();
@@ -66,6 +77,67 @@ public class GameService {
         } while (choice != 3);
 
         scanner.close();
+
+    }
+
+    public void humanPlays(HumanPlayer player, AbstractCard currentCard, Scanner scanner) {
+        int index;
+        System.out.println("Your hand:");
+        player.showHand();
+
+        if(player.hasPlayableCard(player.getHand(), currentCard)) {
+
+            System.out.println("Since you have cards pick a card to play according to it's index");
+
+            while (true) {
+                if (scanner.hasNextInt()) {
+                    index = scanner.nextInt();
+
+                    if (index < 0 || index >= player.getHand().size()) {
+                        System.out.println("Invalid index: " + index + ". Please enter a valid index.");
+                    }
+                    else if (player.getHand().get(index).isPlayable(currentCard))
+                    {
+                        discardPile.add(player.playCard(player.getHand(),currentCard,index));
+                        break;
+                    }
+                }
+                else
+                {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.next(); // Clear the invalid input
+                }
+            }
+        }
+        else {
+            AbstractCard tempCard  = (deck.drawCard());
+            if(tempCard.isPlayable(currentCard)) {
+                discardPile.add(tempCard);
+            }
+            else {
+                player.addCard(tempCard);
+            }
+        }
+
+    }
+
+    public void BotPlays(BotPlayer botPlayer, AbstractCard currentCard){
+
+        if (botPlayer == null || currentCard == null) {
+            throw new IllegalArgumentException("BotPlayer or currentCard cannot be null.");
+        }
+        if ( botPlayer.hasPlayableCard(currentCard) ) {
+            discardPile.add(botPlayer.playCard(currentCard));
+        }
+        else {
+            AbstractCard tempCard  = (deck.drawCard());
+            if(tempCard.isPlayable(currentCard)) {
+                discardPile.add(tempCard);
+            }
+            else {
+                botPlayer.addCard(tempCard);
+            }
+        }
     }
 
 

@@ -1,6 +1,6 @@
-package App.Deck;
+package AppTools.Deck;
 
-import App.CardModel.*;
+import AppTools.CardModel.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 public class Deck {
 
-    final private ArrayList<AbstractCard> cards;
+    private ArrayList<AbstractCard> cards;
 
     public Deck() {
         cards = new ArrayList<>();

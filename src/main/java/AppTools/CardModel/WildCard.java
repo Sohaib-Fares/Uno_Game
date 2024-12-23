@@ -1,4 +1,4 @@
-package App.CardModel;
+package AppTools.CardModel;
 
 import java.util.Objects;
 
@@ -11,12 +11,12 @@ public class WildCard extends AbstractCard {
     }
 
     @Override
-    public boolean isPlayable(Object o) {
-        if (Objects.isNull(o)) {
+    public boolean isPlayable(AbstractCard card) {
+        if (Objects.isNull(card)){
             return false;
         }
-            WildCard wildCard = (WildCard) o;
-            return getColor() == wildCard.getColor();
+
+            return true;
 
     }
 

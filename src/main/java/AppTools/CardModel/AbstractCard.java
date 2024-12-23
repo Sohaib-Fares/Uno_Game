@@ -1,4 +1,4 @@
-package App.CardModel;
+package AppTools.CardModel;
 
 public abstract class AbstractCard {
     private final CardType type;
@@ -17,7 +17,7 @@ public abstract class AbstractCard {
         return color;
     }
 
-    public abstract boolean isPlayable(Object o);
+    public abstract boolean isPlayable(AbstractCard card);
 
     public abstract int hashCode();
 

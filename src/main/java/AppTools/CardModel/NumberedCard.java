@@ -1,4 +1,4 @@
-package App.CardModel;
+package AppTools.CardModel;
 
 import java.util.Objects;
 
@@ -16,11 +16,11 @@ public class NumberedCard extends AbstractCard {
     }
 
     @Override
-    public boolean isPlayable(Object o) {
-        if (Objects.isNull(o)) {
+    public boolean isPlayable(AbstractCard card) {
+        if (Objects.isNull(card)) {
             return false;
         }
-        NumberedCard numberedCard = (NumberedCard) o;
+        NumberedCard numberedCard = (NumberedCard) card;
         return getColor() == numberedCard.getColor() || getValue() == numberedCard.getValue();
 
     }

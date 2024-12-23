@@ -1,8 +1,8 @@
-package App.PlayerModel;
+package AppTools.PlayerModel;
 
 import java.util.ArrayList;
 
-import App.CardModel.AbstractCard;
+import AppTools.CardModel.AbstractCard;
 
 public class HumanPlayer extends Player {
 
@@ -17,23 +17,31 @@ public class HumanPlayer extends Player {
         System.out.println(getName() + "'s hand: " + hand);
     }
 
-    public ArrayList<AbstractCard> CheckPossibleCards(AbstractCard TopCard, ArrayList<AbstractCard> isplayble) {
-        for(AbstractCard i : hand) {
-            if(i.isPlayable(TopCard)) {
-                isplayble.add(i);
-            }
-        }
-        return isplayble;
-    }
+    public boolean hasPlayableCard(ArrayList<AbstractCard> hand ,AbstractCard currentCard) {
 
-    public boolean playCard(ArrayList<AbstractCard> possibleCards, int n, ArrayList<AbstractCard> playedCards) {
-        for(AbstractCard i : this.hand) {
-            if(i == possibleCards.get(n)) {
-                playedCards.add(possibleCards.get(n));
-                this.hand.remove(n);
+        for(AbstractCard card : hand) {
+            if( card.isPlayable(currentCard)) {
                 return true;
             }
         }
         return false;
     }
+
+    public AbstractCard playCard(ArrayList<AbstractCard> hand, AbstractCard currentCard, int index) {
+        // Validate the hand and index
+        if (hand == null) {
+            throw new IllegalArgumentException("Hand cannot be null.");
+        }
+
+        // Check if the card at the specified index is playable
+        AbstractCard selectedCard = hand.get(index);
+        if (!selectedCard.isPlayable(currentCard)) {
+            System.out.println("Invalid input: card at index " + index + " is not playable.");
+            return null;
+        }
+
+        // Remove and return the playable card to be added to discardPile in main
+        return hand.remove(index);
+    }
+
 }

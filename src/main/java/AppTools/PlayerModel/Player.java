@@ -1,7 +1,7 @@
-package App.PlayerModel;
+package AppTools.PlayerModel;
 
 import java.util.ArrayList;
-import App.CardModel.AbstractCard;
+import AppTools.CardModel.AbstractCard;
 
 
 public abstract class Player {
@@ -31,7 +31,13 @@ public ArrayList<AbstractCard> getHand() {
 public void setHand(ArrayList<AbstractCard> Hand) {
     hand = Hand;
 }
-
+public ArrayList<AbstractCard> removeCard(int index) {
+    hand.remove(index);
+    return hand;
+}
+public void addCard(AbstractCard card) {
+    hand.add(card);
+}
 @Override
 public String toString() {
     return name;
