@@ -22,6 +22,8 @@ public class GameService {
     private ArrayList<Player> players;
     private Player currentPlayer;
     private AbstractCard currentCard;
+    private Boolean gmeOver = null;
+    private Direction direction;
 
     public void showGameMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -77,6 +79,10 @@ public class GameService {
         } while (choice != 3);
 
         scanner.close();
+
+    }
+
+    public void gameStart() throws IOException {
 
     }
 
@@ -139,6 +145,7 @@ public class GameService {
             }
         }
     }
+
 
 
     // TODO: Used for tests only, MUST-REMOVE in the end

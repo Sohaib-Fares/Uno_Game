@@ -10,6 +10,10 @@ public class WildCard extends AbstractCard {
         super(type, color);
     }
 
+    public void setChosenColor(CardColor chosenColor) {
+        this.chosenColor = chosenColor;
+    }
+
     @Override
     public boolean isPlayable(AbstractCard card) {
         if (Objects.isNull(card)){
