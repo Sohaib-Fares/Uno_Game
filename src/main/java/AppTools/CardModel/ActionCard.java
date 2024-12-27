@@ -5,7 +5,7 @@ import java.util.Objects;
 public class ActionCard extends AbstractCard {
 
 
-    public ActionCard(CardType type, CardColor color) {
+    public ActionCard(CardTypeEnum type, CardColorEnum color) {
         super(type, color);
     }
 

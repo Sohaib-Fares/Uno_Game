@@ -4,24 +4,24 @@ import java.util.Objects;
 
 public class WildCard extends AbstractCard {
 
-    private CardColor chosenColor;
+    private CardColorEnum chosenColor;
 
-    public WildCard(CardType type, CardColor color) {
+    public WildCard(CardTypeEnum type, CardColorEnum color) {
         super(type, color);
     }
 
-    public void setChosenColor(CardColor chosenColor) {
+    public void setChosenColor(CardColorEnum chosenColor) {
         this.chosenColor = chosenColor;
     }
 
     @Override
     public boolean isPlayable(AbstractCard card) {
-        if (Objects.isNull(card)){
+        if (Objects.isNull(card)) {
             return false;
         }
-
-            return true;
-
+        
+        // WildCard is always playable
+        return true;
     }
 
     @Override

@@ -6,8 +6,8 @@ public class NumberedCard extends AbstractCard {
 
     private final int value;
 
-    public NumberedCard(CardColor color, int value){
-        super(CardType.NUMBER, color);
+    public NumberedCard(CardColorEnum color, int value) {
+        super(CardTypeEnum.NUMBER, color);
         this.value = value;
     }
 
@@ -16,13 +16,18 @@ public class NumberedCard extends AbstractCard {
     }
 
     @Override
-    public boolean isPlayable(AbstractCard card) {
-        if (Objects.isNull(card)) {
-            return false;
+    public boolean isPlayable(AbstractCard currentCard) {
+        if (currentCard instanceof NumberedCard) {
+            NumberedCard numberedCard = (NumberedCard) currentCard;
+            return getColor().equals(numberedCard.getColor()) || this.value == numberedCard.getValue();
+        } else if (currentCard instanceof ActionCard) {
+            return getColor().equals(currentCard.getColor());
+        } else {
+            System.out.println("************-----------************");
+            System.err.println("The card is not a numbred, it is: " + currentCard.getClass());
+            System.out.println("************-----------************");
         }
-        NumberedCard numberedCard = (NumberedCard) card;
-        return getColor() == numberedCard.getColor() || getValue() == numberedCard.getValue();
-
+        return false;
     }
 
     public int hashCode() {
@@ -32,7 +37,7 @@ public class NumberedCard extends AbstractCard {
     @Override
     public String toString() {
         return "[NumberedCard, " +
-                value +", " + getColor() +
+                value + ", " + getColor() +
                 " ]";
     }
 }

@@ -1,7 +1,6 @@
 package AppTools.Game;
 
-import AppTools.CardModel.AbstractCard;
-import AppTools.CardModel.CardColor;
+import AppTools.CardModel.CardColorEnum;
 import AppTools.CardModel.WildCard;
 import AppTools.PlayerModel.BotPlayer;
 import AppTools.PlayerModel.HumanPlayer;
@@ -14,10 +13,9 @@ public class CardsEffect {
 
     public void wildCardsEffect(WildCard playedCard, Player player, Scanner scanner) {
         if (player instanceof BotPlayer) {
-
             Random random = new Random();
-            int selectedColorIndex = random.nextInt(0,CardColor.values().length);
-            CardColor selectedColor = CardColor.values()[selectedColorIndex];
+            int selectedColorIndex = random.nextInt(0,CardColorEnum.values().length);
+            CardColorEnum selectedColor = CardColorEnum.values()[selectedColorIndex];
             System.out.println("Bot played a wild card and chose the color: " + selectedColor);
 
         } else if (player instanceof HumanPlayer) {
@@ -26,17 +24,17 @@ public class CardsEffect {
 
             // Display available colors to choose from
             System.out.println("Available colors:");
-            for (CardColor color : CardColor.values()) {
-                System.out.println(color);
+            for (CardColorEnum color : CardColorEnum.values()) {
+                System.out.println("- " + color);
             }
 
             int selectedColorIndex = -1;
-            while (selectedColorIndex < 0 || selectedColorIndex >= CardColor.values().length) {
-                System.out.print("Enter a number (0 - " + (CardColor.values().length - 1) + "): ");
+            while (selectedColorIndex < 0 || selectedColorIndex >= CardColorEnum.values().length) {
+                System.out.print("Enter a number (0 - " + (CardColorEnum.values().length - 1) + "): ");
 
                 if (scanner.hasNextInt()) {
                     selectedColorIndex = scanner.nextInt();
-                    if (selectedColorIndex < 0 || selectedColorIndex >= CardColor.values().length) {
+                    if (selectedColorIndex < 0 || selectedColorIndex >= CardColorEnum.values().length) {
                         System.out.println("Invalid choice. Please choose a valid color.");
                     }
                 } else {
@@ -45,8 +43,9 @@ public class CardsEffect {
                 }
             }
 
-            CardColor selectedColor = CardColor.values()[selectedColorIndex];
+            CardColorEnum selectedColor = CardColorEnum.values()[selectedColorIndex];
             System.out.println("You selected: " + selectedColor);
+            playedCard.setChosenColor(selectedColor);
         }
     }
 

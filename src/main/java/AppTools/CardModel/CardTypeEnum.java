@@ -1,6 +1,6 @@
 package AppTools.CardModel;
 
-public enum CardType {
+public enum CardTypeEnum {
     NUMBER,
     SKIP,
     REVERSE,

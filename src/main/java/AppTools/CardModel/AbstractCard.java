@@ -1,19 +1,19 @@
 package AppTools.CardModel;
 
 public abstract class AbstractCard {
-    private final CardType type;
-    private final CardColor color;
+    private final CardTypeEnum type;
+    private final CardColorEnum color;
 
-    public AbstractCard(CardType type, CardColor color) {
+    public AbstractCard(CardTypeEnum type, CardColorEnum color) {
         this.type = type;
         this.color = color;
     }
 
-    public CardType getType() {
+    public CardTypeEnum getType() {
         return type;
     }
 
-    public CardColor getColor() {
+    public CardColorEnum getColor() {
         return color;
     }
 

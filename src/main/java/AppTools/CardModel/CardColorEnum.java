@@ -1,6 +1,6 @@
 package AppTools.CardModel;
 
-public enum CardColor {
+public enum CardColorEnum {
     RED,
     GREEN,
     BLUE,
