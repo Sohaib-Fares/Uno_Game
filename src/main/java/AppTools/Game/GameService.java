@@ -145,9 +145,12 @@ public class GameService {
             if (currentCard.getType() != CardTypeEnum.NUMBER) {
                 System.out.println("Entered the card effect");
                 cardEffectController(currentCard, cardsEffect, scanner);
+                
             }
 
             if (currentCard.getType() == CardTypeEnum.SKIP) {
+                Utils.clearScreen();
+                RunningGameScreen.showPlayerTurn(currentPlayer);
                 continue;
             }
 
