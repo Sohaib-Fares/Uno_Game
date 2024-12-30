@@ -28,6 +28,7 @@ public class Deck {
         discardPile.clear();
         discardPile.add(topCard);
         shuffle();
+        System.out.println("----- Deck has been re shuffled ! -----");
     }
 
     private void initializeDeck() {

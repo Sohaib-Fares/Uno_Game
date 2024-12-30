@@ -14,13 +14,17 @@ public class HumanPlayer extends Player {
     }
 
     public void showHand() {
-        System.out.println(getName() + "'s hand: " + hand);
+        System.out.println(getName() + "'s hand:");
+        for (int i = 0; i < hand.size(); i++) {
+            System.out.println((i + 1) + "- " + hand.get(i));
+        }
+        System.out.println();
     }
 
-    public boolean hasPlayableCard(ArrayList<AbstractCard> hand ,AbstractCard currentCard) {
+    public boolean hasPlayableCard(ArrayList<AbstractCard> hand, AbstractCard currentCard) {
 
-        for(AbstractCard card : hand) {
-            if( card.isPlayable(currentCard)) {
+        for (AbstractCard card : hand) {
+            if (card.isPlayable(currentCard)) {
                 return true;
             }
         }

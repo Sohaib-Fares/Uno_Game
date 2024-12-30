@@ -15,11 +15,16 @@ public class WildCard extends AbstractCard {
     }
 
     @Override
+    public CardColorEnum getColor() {
+        return this.chosenColor;
+    }
+
+    @Override
     public boolean isPlayable(AbstractCard card) {
         if (Objects.isNull(card)) {
             return false;
         }
-        
+
         // WildCard is always playable
         return true;
     }
@@ -32,7 +37,7 @@ public class WildCard extends AbstractCard {
     @Override
     public String toString() {
         return "[WildCard, " +
-                getType() + ", " + getColor() +
+                getType() + ", " + (chosenColor != null ? chosenColor : getColor()) +
                 " ]";
     }
 

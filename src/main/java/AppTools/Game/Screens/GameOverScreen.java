@@ -6,7 +6,7 @@ public class GameOverScreen {
     public GameOverScreen() {
     }
 
-    public void showGameOver(String winnerName) {
+    public static void showGameOver(String winnerName) {
         Utils.clearScreen();
         for (int i = 0; i < 4; i++) {
             System.out.println("                ____                         ___                 \n" + //

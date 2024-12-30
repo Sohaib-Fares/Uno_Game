@@ -1,5 +1,6 @@
 package AppTools.Game;
 
+import AppTools.CardModel.AbstractCard;
 import AppTools.CardModel.CardColorEnum;
 import AppTools.CardModel.WildCard;
 import AppTools.PlayerModel.BotPlayer;
@@ -12,9 +13,15 @@ import java.util.Scanner;
 public class CardsEffect {
 
     public void wildCardsEffect(WildCard playedCard, Player player, Scanner scanner) {
+
+        // Check if the color has already been chosen
+        if (playedCard.getColor() != null) {
+            return;
+        }
+
         if (player instanceof BotPlayer) {
             Random random = new Random();
-            int selectedColorIndex = random.nextInt(0,CardColorEnum.values().length);
+            int selectedColorIndex = random.nextInt(0, CardColorEnum.values().length);
             CardColorEnum selectedColor = CardColorEnum.values()[selectedColorIndex];
             System.out.println("Bot played a wild card and chose the color: " + selectedColor);
 
@@ -24,16 +31,16 @@ public class CardsEffect {
 
             // Display available colors to choose from
             System.out.println("Available colors:");
-            for (CardColorEnum color : CardColorEnum.values()) {
-                System.out.println("- " + color);
+            for (int i = 0; i < CardColorEnum.values().length; i++) {
+                System.out.println((i + 1) + "- " + CardColorEnum.values()[i]);
             }
 
             int selectedColorIndex = -1;
             while (selectedColorIndex < 0 || selectedColorIndex >= CardColorEnum.values().length) {
-                System.out.print("Enter a number (0 - " + (CardColorEnum.values().length - 1) + "): ");
+                System.out.print("Enter a number (1 - " + (CardColorEnum.values().length) + "): ");
 
                 if (scanner.hasNextInt()) {
-                    selectedColorIndex = scanner.nextInt();
+                    selectedColorIndex = scanner.nextInt() - 1;
                     if (selectedColorIndex < 0 || selectedColorIndex >= CardColorEnum.values().length) {
                         System.out.println("Invalid choice. Please choose a valid color.");
                     }
@@ -48,7 +55,6 @@ public class CardsEffect {
             playedCard.setChosenColor(selectedColor);
         }
     }
-
 
     public Direction reverseCardEffect(Direction direction) {
 
@@ -72,6 +78,5 @@ public class CardsEffect {
             throw new IllegalArgumentException("Invalid direction: " + direction);
         }
     }
-
 
 }

@@ -4,22 +4,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import AppTools.CardModel.AbstractCard;
 import AppTools.CardModel.ActionCard;
+import AppTools.CardModel.CardColorEnum;
 import AppTools.CardModel.CardTypeEnum;
+import AppTools.CardModel.NumberedCard;
 import AppTools.CardModel.WildCard;
 import AppTools.Deck.Deck;
 import AppTools.Game.Screens.PlayerSetupScreen;
 import AppTools.Game.Screens.RunningGameScreen;
+import AppTools.Game.Screens.GameOverScreen;
 import AppTools.Game.Screens.HowToPlayScreen;
 import AppTools.Game.Screens.WelcomeScreen;
 import AppTools.OurUtils.Utils;
 import AppTools.PlayerModel.BotPlayer;
 import AppTools.PlayerModel.HumanPlayer;
 import AppTools.PlayerModel.Player;
-
-import javax.swing.*;
 
 public class GameService {
     private Deck deck = new Deck();
@@ -29,6 +31,8 @@ public class GameService {
     private AbstractCard currentCard;
     private Boolean gameOver = null;
     private Direction gameDirection;
+    private boolean nextDrawsCards = false;
+    private int cardsToDraw = 0;
 
     public void showGameMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -93,8 +97,7 @@ public class GameService {
         } while (topCard instanceof ActionCard || topCard instanceof WildCard);
 
         currentCard = topCard;
-        Random random = new Random();
-        currentPlayer = players.get(random.nextInt(players.size()));
+        currentPlayer = players.get(ThreadLocalRandom.current().nextInt(players.size()));
         gameDirection = Direction.CLOCKWISE;
         gameOver = false;
 
@@ -102,90 +105,76 @@ public class GameService {
     }
 
     public void gameRunning(CardsEffect cardsEffect, Scanner scanner) {
-        while (!gameOver) {
+        while (true) {
 
             if (currentPlayer instanceof HumanPlayer) {
-                System.out.println("***************************");
-                System.out.println(currentPlayer.getHand());
-                System.out.println("***************************");
 
                 RunningGameScreen.showGameStatus(players, currentPlayer, deck, discardPile.get(discardPile.size() - 1));
                 humanPlays((HumanPlayer) currentPlayer, currentCard, scanner);
 
-                System.out.println("***************************");
-                System.out.println(currentPlayer.getHand());
-                System.out.println("***************************");
                 Utils.pauseForUser();
 
             } else {
                 System.out.println("Bot is playing . . . ");
-                System.out.println("***************************");
-                System.out.println(currentPlayer.getHand());
-                System.out.println("***************************");
-
-                System.out.println("***************************");
-                System.out.println(gameDirection);
-                System.out.println("***************************");
 
                 Utils.waitFor(2000);
                 botPlays((BotPlayer) currentPlayer, currentCard);
-
-                System.out.println("***************************");
-                System.out.println(currentPlayer.getHand());
-                System.out.println("***************************");
-
-                System.out.println("***************************");
-                System.out.println(gameDirection);
-                System.out.println("***************************");
                 Utils.pauseForUser();
             }
 
-            checkWin(currentPlayer);
-            
-            if (currentCard.getType() != CardTypeEnum.NUMBER) {
-                System.out.println("Entered the card effect");
-                cardEffectController(currentCard, cardsEffect, scanner);
-                
+            if (checkWin(currentPlayer)) {
+                System.out.println(currentPlayer.getName() + " Won the game.");
+                GameOverScreen.showGameOver(currentPlayer.getName());
+                break;
             }
 
-            if (currentCard.getType() == CardTypeEnum.SKIP) {
+            cardEffectController(currentCard, cardsEffect, scanner);
+
+            if (currentCard instanceof ActionCard && currentCard.getType() == CardTypeEnum.SKIP) {
                 Utils.clearScreen();
                 RunningGameScreen.showPlayerTurn(currentPlayer);
                 continue;
             }
 
-            int currentIndex = players.indexOf(currentPlayer);
-            if (gameDirection == Direction.CLOCKWISE) {
-                currentPlayer = players.get((currentIndex + 1) % players.size());
-            } else {
-                currentPlayer = players.get((currentIndex - 1 + players.size()) % players.size());
-            }
-
+            nextRound();
 
             Utils.clearScreen();
             RunningGameScreen.showPlayerTurn(currentPlayer);
         }
     }
 
+    private void nextRound() {
+        int currentIndex = players.indexOf(currentPlayer);
+        if (gameDirection == Direction.CLOCKWISE) {
+            currentPlayer = players.get((currentIndex + 1) % players.size());
+        } else {
+            currentPlayer = players.get((currentIndex - 1 + players.size()) % players.size());
+        }
+    }
+
+    private void handleDrawCardEffect() {
+        String playerName = currentPlayer instanceof HumanPlayer ? currentPlayer.getName()
+                : ("Bot:" + currentPlayer.getName());
+        System.out.println(playerName + " has to draw " + cardsToDraw + " cards and lose the turn!");
+        System.out.print("Cards drawed: ");
+        for (int i = 0; i < cardsToDraw; i++) {
+            checkEmptyDeck();
+            currentPlayer.addCard(deck.drawCard());
+            System.out.print(currentCard + ", ");
+        }
+        System.out.println();
+        cardsToDraw = 0;
+        nextDrawsCards = false;
+    }
+
     public void humanPlays(HumanPlayer player, AbstractCard currentCard, Scanner scanner) {
         int index;
-        System.out.println("Your hand:");
         player.showHand();
 
-        if (currentCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
-            System.out.println("You gotta draw 4 cards !\n");
-            for (int i = 0; i < 4; i++) {
-                checkEmptyDeck();
-                currentPlayer.addCard(deck.drawCard());
-            }
-        }
-        
-        if (currentCard.getType() == CardTypeEnum.DRAW_TWO) {
-            System.out.println("You gotta draw 2 cards !\n");
-            for (int i = 0; i < 2; i++) {
-                checkEmptyDeck();
-                currentPlayer.addCard(deck.drawCard());
-            }
+        if (nextDrawsCards) {
+            System.out.println();
+            handleDrawCardEffect();
+            return;
         }
 
         if (player.hasPlayableCard(player.getHand(), currentCard)) {
@@ -202,6 +191,17 @@ public class GameService {
                         AbstractCard playedCard = player.playCard(player.getHand(), currentCard, index);
                         discardPile.add(playedCard);
                         this.currentCard = playedCard;
+
+                        // Check this out
+                        if (playedCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
+                            cardsToDraw = 4;
+                            nextDrawsCards = true;
+                        }
+                        if (playedCard.getType() == CardTypeEnum.DRAW_TWO) {
+                            cardsToDraw = 2;
+                            nextDrawsCards = true;
+                        }
+
                         break;
                     } else {
                         System.out.println("The selected card is not playable. Please choose another card.");
@@ -218,8 +218,10 @@ public class GameService {
             if (tempCard.isPlayable(currentCard)) {
                 discardPile.add(tempCard);
                 this.currentCard = tempCard;
+                System.out.println("You draw a card and played it: " + tempCard);
             } else {
                 player.addCard(tempCard);
+                System.out.println("The drawn card is: " + tempCard);
             }
         }
     }
@@ -228,54 +230,69 @@ public class GameService {
         if (botPlayer == null || currentCard == null) {
             throw new IllegalArgumentException("BotPlayer or currentCard cannot be null.");
         }
-        if (currentCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
-            for (int i = 0; i < 4; i++) {
-                checkEmptyDeck();
-                currentPlayer.addCard(deck.drawCard());
-            }
+        if (nextDrawsCards) {
+            handleDrawCardEffect();
+            return;
         }
-        if (currentCard.getType() == CardTypeEnum.DRAW_TWO) {
-            for (int i = 0; i < 2; i++) {
-                checkEmptyDeck();
-                currentPlayer.addCard(deck.drawCard());
-            }
-        }
+
         if (botPlayer.hasPlayableCard(currentCard)) {
             AbstractCard playedCard = botPlayer.playCard(currentCard);
             discardPile.add(playedCard);
             this.currentCard = playedCard;
+
+            if (playedCard instanceof WildCard) {
+                Random random = new Random();
+                int selectedColorIndex = random.nextInt(CardColorEnum.values().length);
+                CardColorEnum selectedColor = CardColorEnum.values()[selectedColorIndex];
+                ((WildCard) playedCard).setChosenColor(selectedColor);
+                System.out.println("Bot played a wild card and chose the color: " + selectedColor);
+            } else {
+                System.out.println("Bot played the card: " + playedCard);
+            }
+            if (playedCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
+                cardsToDraw = 4;
+                nextDrawsCards = true;
+            }
+            if (playedCard.getType() == CardTypeEnum.DRAW_TWO) {
+                cardsToDraw = 2;
+                nextDrawsCards = true;
+            }
+
         } else {
             checkEmptyDeck();
             AbstractCard tempCard = deck.drawCard();
             if (tempCard.isPlayable(currentCard)) {
                 discardPile.add(tempCard);
                 this.currentCard = tempCard;
+                System.out.println("Bot draw a card and played it.");
             } else {
+                System.out.println("Bot draw a card.");
                 botPlayer.addCard(tempCard);
             }
         }
     }
 
-    public void checkWin(Player player) {
+    public boolean checkWin(Player player) {
         if (player.getHand().isEmpty()) {
             gameOver = true;
-            System.out.println(player.getName() + " has won the game!");
-            Utils.pauseForUser();
+            return true;
+
         }
+        return false;
     }
 
-    public void cardEffectController(AbstractCard card, CardsEffect cardsEffect, Scanner scanner) {
-        if (card instanceof WildCard) {
-            cardsEffect.wildCardsEffect((WildCard) card, currentPlayer, scanner);
+    public void cardEffectController(AbstractCard currentCard, CardsEffect cardsEffect, Scanner scanner) {
+        if (currentCard instanceof WildCard) {
+            cardsEffect.wildCardsEffect((WildCard) currentCard, currentPlayer, scanner);
 
-        } else if (card instanceof ActionCard) {
-            if (card.getType() == CardTypeEnum.REVERSE) {
+        } else if (currentCard instanceof ActionCard) {
+            if (currentCard.getType() == CardTypeEnum.REVERSE) {
                 gameDirection = cardsEffect.reverseCardEffect(gameDirection);
                 System.out.println("Game reversed: " + gameDirection);
-            } else if (card.getType() == CardTypeEnum.SKIP) {
+            } else if (currentCard.getType() == CardTypeEnum.SKIP) {
                 int currentIndex = players.indexOf(currentPlayer);
                 currentPlayer = players.get(cardsEffect.skipCardEffect(currentIndex, gameDirection));
-            } 
+            }
         }
     }
 

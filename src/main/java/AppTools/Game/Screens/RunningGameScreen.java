@@ -67,7 +67,8 @@ public class RunningGameScreen {
         System.out.println();
 
         // Draw Deck and Discard Pile
-        System.out.println("Draw Deck [ 🂠 ]   Discard Pile: " + discardPileTop);
+        System.out.println("Draw Deck (" + drawDeck.getRemainingCards().size() + "): [ 🂠 ] \t\t Discard Pile : "
+                + discardPileTop);
         System.out.println();
 
         for (int i = 0; i < players.size(); i++) {
@@ -78,7 +79,8 @@ public class RunningGameScreen {
 
             } else {
                 // Flipped cards for other players
-                System.out.println((i + 1) + "- " + player.getName() + ": " + getFlippedCardRepresentation(player.getHand().size()));
+                System.out.println((i + 1) + "- " + player.getName() + ": "
+                        + getFlippedCardRepresentation(player.getHand().size()));
             }
 
             // Print a new line to separate players visually
@@ -98,4 +100,3 @@ public class RunningGameScreen {
     }
 
 }
-

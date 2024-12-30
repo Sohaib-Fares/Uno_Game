@@ -22,6 +22,8 @@ public class NumberedCard extends AbstractCard {
             return getColor().equals(numberedCard.getColor()) || this.value == numberedCard.getValue();
         } else if (currentCard instanceof ActionCard) {
             return getColor().equals(currentCard.getColor());
+        } else if (currentCard instanceof WildCard) {
+            return getColor().equals(currentCard.getColor());
         } else {
             System.out.println("************-----------************");
             System.err.println("The card is not a numbred, it is: " + currentCard.getClass());
