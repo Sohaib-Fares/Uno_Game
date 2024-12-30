@@ -160,7 +160,7 @@ public class GameService {
         for (int i = 0; i < cardsToDraw; i++) {
             checkEmptyDeck();
             currentPlayer.addCard(deck.drawCard());
-            System.out.print(currentCard + ", ");
+            System.out.print(currentPlayer.getHand().get(currentPlayer.getHand().size() - 1) + ", ");
         }
         System.out.println();
         cardsToDraw = 0;
@@ -273,10 +273,10 @@ public class GameService {
     }
 
     public boolean checkWin(Player player) {
+        boolean gameOver = false;
         if (player.getHand().isEmpty()) {
             gameOver = true;
             return true;
-
         }
         return false;
     }
