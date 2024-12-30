@@ -1,6 +1,6 @@
-package App.Deck;
+package AppTools.Deck;
 
-import App.CardModel.*;
+import AppTools.CardModel.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 public class Deck {
 
-    final private ArrayList<AbstractCard> cards;
+    private ArrayList<AbstractCard> cards;
 
     public Deck() {
         cards = new ArrayList<>();
@@ -19,14 +19,27 @@ public class Deck {
         shuffle();
     }
 
+    public void reInitializeDeck(ArrayList<AbstractCard> discardPile) {
+        if (discardPile.isEmpty()) {
+            throw new NoSuchElementException("Discard pile is empty.");
+        }
+        AbstractCard topCard = discardPile.remove(discardPile.size() - 1);
+        cards.addAll(discardPile);
+        discardPile.clear();
+        discardPile.add(topCard);
+        shuffle();
+        System.out.println("----- Deck has been re shuffled ! -----");
+    }
+
     private void initializeDeck() {
         createWildCards();
         createActionCards();
         createNumberCards();
     }
 
+    
     private void createNumberCards() {
-        for (var color : CardColor.values()) {
+        for (var color : CardColorEnum.values()) {
             cards.add(new NumberedCard(color, 0));
 
             for (var i = 1; i <= 9; i++) {
@@ -37,19 +50,19 @@ public class Deck {
     }
 
     private void createActionCards() {
-        for (var color : CardColor.values()) {
+        for (var color : CardColorEnum.values()) {
             for (var i = 0; i < 2; i++) {
-                cards.add(new ActionCard(CardType.SKIP, color));
-                cards.add(new ActionCard(CardType.REVERSE, color));
-                cards.add(new ActionCard(CardType.DRAW_TWO, color));
+                cards.add(new ActionCard(CardTypeEnum.SKIP, color));
+                cards.add(new ActionCard(CardTypeEnum.REVERSE, color));
+                cards.add(new ActionCard(CardTypeEnum.DRAW_TWO, color));
             }
         }
     }
 
     private void createWildCards() {
         for (var i = 0; i < 4; i++) {
-            cards.add(new WildCard(CardType.WILD_COLOR, null));
-            cards.add(new WildCard(CardType.WILD_DRAW_FOUR, null));
+            cards.add(new WildCard(CardTypeEnum.WILD_COLOR, null));
+            cards.add(new WildCard(CardTypeEnum.WILD_DRAW_FOUR, null));
         }
     }
 
@@ -71,6 +84,10 @@ public class Deck {
 
     public ArrayList<AbstractCard> getRemainingCards() {
         return new ArrayList<>(cards);
+    }
+
+    public Boolean isEmpty() {
+        return cards.isEmpty();
     }
 
 }

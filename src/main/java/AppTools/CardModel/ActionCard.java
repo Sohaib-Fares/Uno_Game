@@ -1,21 +1,20 @@
-package App.CardModel;
+package AppTools.CardModel;
 
 import java.util.Objects;
 
 public class ActionCard extends AbstractCard {
 
 
-    public ActionCard(CardType type, CardColor color) {
+    public ActionCard(CardTypeEnum type, CardColorEnum color) {
         super(type, color);
     }
 
     @Override
-    public boolean isPlayable(Object o) {
-        if (Objects.isNull(o)) {
+    public boolean isPlayable(AbstractCard card) {
+        if (Objects.isNull(card)) {
             return false;
         }
-        ActionCard actionCard = (ActionCard) o;
-        return getColor() == actionCard.getColor();
+        return getColor() == card.getColor();
 
     }
 

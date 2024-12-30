@@ -1,4 +1,4 @@
-package App.Game.Screens;
+package AppTools.Game.Screens;
 
 import java.io.IOException;
 
