@@ -301,10 +301,4 @@ public class GameService {
             deck.reInitializeDeck(discardPile);
         }
     }
-
-    // TODO: Used for tests only, MUST-REMOVE in the end
-    public static void main(String[] args) throws IOException {
-        GameService service = new GameService();
-        service.showGameMenu();
-    }
 }
