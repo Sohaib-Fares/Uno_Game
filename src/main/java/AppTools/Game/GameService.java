@@ -10,7 +10,6 @@ import AppTools.CardModel.AbstractCard;
 import AppTools.CardModel.ActionCard;
 import AppTools.CardModel.CardColorEnum;
 import AppTools.CardModel.CardTypeEnum;
-import AppTools.CardModel.NumberedCard;
 import AppTools.CardModel.WildCard;
 import AppTools.Deck.Deck;
 import AppTools.Game.Screens.PlayerSetupScreen;
