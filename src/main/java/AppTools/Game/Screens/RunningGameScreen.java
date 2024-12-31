@@ -81,12 +81,10 @@ public class RunningGameScreen {
                 rightPlayer = i;
 
             } else {
-                // Flipped cards for other players
                 System.out.println((i + 1) + "- " + player.getName() + ": "
                         + getFlippedCardRepresentation(player.getHand().size()));
             }
 
-            // Print a new line to separate players visually
             System.out.println();
         }
         System.out.println((rightPlayer + 1) + "- " + currentPlayer.getName());
@@ -97,7 +95,7 @@ public class RunningGameScreen {
     private static String getFlippedCardRepresentation(int cardCount) {
         StringBuilder flippedCards = new StringBuilder();
         for (int i = 0; i < cardCount; i++) {
-            flippedCards.append("🂠 "); // Flipped card representation
+            flippedCards.append("🂠 "); 
         }
         return flippedCards.toString();
     }

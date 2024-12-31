@@ -119,8 +119,14 @@ public class GameService {
             } else {
                 System.out.println("Bot is playing . . . ");
 
-                Utils.waitFor(2000);
+                // Utils.waitFor(2000);
+                System.out.println("************************");
+                System.out.println(currentPlayer.getHand());
+                System.out.println("************************");
                 botPlays((BotPlayer) currentPlayer, currentCard);
+                System.out.println("************************");
+                System.out.println(currentPlayer.getHand());
+                System.out.println("************************");
                 Utils.pauseForUser();
             }
 
@@ -166,6 +172,11 @@ public class GameService {
                 System.out.print(currentPlayer.getHand().get(currentPlayer.getHand().size() - 1) + ", ");
             }
             System.out.println();
+        } else {
+            for (int i = 0; i < cardsToDraw; i++) {
+                checkEmptyDeck();
+                currentPlayer.addCard(deck.drawCard());
+            }
         }
         cardsToDraw = 0;
         nextDrawsCards = false;
