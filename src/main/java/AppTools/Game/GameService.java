@@ -31,6 +31,7 @@ public class GameService {
     private Boolean gameOver = null;
     private Direction gameDirection;
     private boolean nextDrawsCards = false;
+    private boolean nextSkip = false;
     private int cardsToDraw = 0;
 
     public void showGameMenu() throws IOException {
@@ -110,14 +111,16 @@ public class GameService {
 
                 RunningGameScreen.showGameStatus(players, currentPlayer, deck, discardPile.get(discardPile.size() - 1));
                 humanPlays((HumanPlayer) currentPlayer, currentCard, scanner);
-
-                Utils.pauseForUser();
+                if (!(currentCard.getColor() == null)) {
+                    Utils.pauseForUser();
+                }
 
             } else {
                 System.out.println("Bot is playing . . . ");
 
                 Utils.waitFor(2000);
                 botPlays((BotPlayer) currentPlayer, currentCard);
+
                 Utils.pauseForUser();
             }
 
@@ -129,7 +132,7 @@ public class GameService {
 
             cardEffectController(currentCard, cardsEffect, scanner);
 
-            if (currentCard instanceof ActionCard && currentCard.getType() == CardTypeEnum.SKIP) {
+            if (currentCard.getType() == CardTypeEnum.SKIP) {
                 Utils.clearScreen();
                 RunningGameScreen.showPlayerTurn(currentPlayer);
                 continue;
@@ -155,13 +158,20 @@ public class GameService {
         String playerName = currentPlayer instanceof HumanPlayer ? currentPlayer.getName()
                 : ("Bot:" + currentPlayer.getName());
         System.out.println(playerName + " has to draw " + cardsToDraw + " cards and lose the turn!");
-        System.out.print("Cards drawed: ");
-        for (int i = 0; i < cardsToDraw; i++) {
-            checkEmptyDeck();
-            currentPlayer.addCard(deck.drawCard());
-            System.out.print(currentPlayer.getHand().get(currentPlayer.getHand().size() - 1) + ", ");
+        if (!(currentPlayer instanceof BotPlayer)) {
+            System.out.print("Cards drawed: ");
+            for (int i = 0; i < cardsToDraw; i++) {
+                checkEmptyDeck();
+                currentPlayer.addCard(deck.drawCard());
+                System.out.print(currentPlayer.getHand().get(currentPlayer.getHand().size() - 1) + ", ");
+            }
+            System.out.println();
+        } else {
+            for (int i = 0; i < cardsToDraw; i++) {
+                checkEmptyDeck();
+                currentPlayer.addCard(deck.drawCard());
+            }
         }
-        System.out.println();
         cardsToDraw = 0;
         nextDrawsCards = false;
     }
@@ -201,6 +211,10 @@ public class GameService {
                             nextDrawsCards = true;
                         }
 
+                        if (playedCard.getType() == CardTypeEnum.SKIP) {
+                            nextSkip = true;
+                        }
+
                         break;
                     } else {
                         System.out.println("The selected card is not playable. Please choose another card.");
@@ -217,12 +231,25 @@ public class GameService {
             if (tempCard.isPlayable(currentCard)) {
                 discardPile.add(tempCard);
                 this.currentCard = tempCard;
+                if (tempCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
+                    cardsToDraw = 4;
+                    nextDrawsCards = true;
+                }
+                if (tempCard.getType() == CardTypeEnum.DRAW_TWO) {
+                    cardsToDraw = 2;
+                    nextDrawsCards = true;
+                }
+
+                if (tempCard.getType() == CardTypeEnum.SKIP) {
+                    nextSkip = true;
+                }
                 System.out.println("You draw a card and played it: " + tempCard);
             } else {
                 player.addCard(tempCard);
                 System.out.println("The drawn card is: " + tempCard);
             }
         }
+
     }
 
     public void botPlays(BotPlayer botPlayer, AbstractCard currentCard) {
@@ -248,6 +275,7 @@ public class GameService {
             } else {
                 System.out.println("Bot played the card: " + playedCard);
             }
+
             if (playedCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
                 cardsToDraw = 4;
                 nextDrawsCards = true;
@@ -257,13 +285,47 @@ public class GameService {
                 nextDrawsCards = true;
             }
 
+            if (playedCard.getType() == CardTypeEnum.SKIP) {
+                nextSkip = true;
+            }
+
         } else {
             checkEmptyDeck();
             AbstractCard tempCard = deck.drawCard();
             if (tempCard.isPlayable(currentCard)) {
                 discardPile.add(tempCard);
                 this.currentCard = tempCard;
-                System.out.println("Bot draw a card and played it.");
+
+                if (tempCard instanceof WildCard) {
+                    Random random = new Random();
+                    int selectedColorIndex = random.nextInt(CardColorEnum.values().length);
+                    CardColorEnum selectedColor = CardColorEnum.values()[selectedColorIndex];
+                    ((WildCard) tempCard).setChosenColor(selectedColor);
+                    if (tempCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
+                        System.out.println("Bot draw a Wild card +4, played it and choose the color: " + selectedColor);
+
+                    } else {
+
+                        System.out.println("Bot draw a Wild card, played it and choose the color: " + selectedColor);
+                    }
+                } else {
+                    System.out.println("Bot draw a card and played it : " + tempCard);
+
+                }
+
+                if (tempCard.getType() == CardTypeEnum.WILD_DRAW_FOUR) {
+                    cardsToDraw = 4;
+                    nextDrawsCards = true;
+                }
+                if (tempCard.getType() == CardTypeEnum.DRAW_TWO) {
+                    cardsToDraw = 2;
+                    nextDrawsCards = true;
+                }
+
+                if (tempCard.getType() == CardTypeEnum.SKIP) {
+                    nextSkip = true;
+                }
+
             } else {
                 System.out.println("Bot draw a card.");
                 botPlayer.addCard(tempCard);
@@ -287,10 +349,11 @@ public class GameService {
         } else if (currentCard instanceof ActionCard) {
             if (currentCard.getType() == CardTypeEnum.REVERSE) {
                 gameDirection = cardsEffect.reverseCardEffect(gameDirection);
-                System.out.println("Game reversed: " + gameDirection);
+
             } else if (currentCard.getType() == CardTypeEnum.SKIP) {
                 int currentIndex = players.indexOf(currentPlayer);
                 currentPlayer = players.get(cardsEffect.skipCardEffect(currentIndex, gameDirection));
+                nextSkip = false;
             }
         }
     }
