@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class ActionCard extends AbstractCard {
 
-
     public ActionCard(CardTypeEnum type, CardColorEnum color) {
         super(type, color);
     }
@@ -14,7 +13,7 @@ public class ActionCard extends AbstractCard {
         if (Objects.isNull(card)) {
             return false;
         }
-        return getColor() == card.getColor();
+        return getColor() == card.getColor() || getType() == card.getType();
 
     }
 

@@ -8,6 +8,7 @@ import AppTools.Deck.Deck;
 import AppTools.Game.Direction;
 import AppTools.OurUtils.Utils;
 import AppTools.PlayerModel.BotPlayer;
+import AppTools.PlayerModel.HumanPlayer;
 import AppTools.PlayerModel.Player;
 
 public class RunningGameScreen {
@@ -45,8 +46,10 @@ public class RunningGameScreen {
 
     public static void showPlayerTurn(Player currentPlayer) {
         Utils.printTable("It's the turn of", currentPlayer.getName());
-        System.out.println("\nTo have fun, please don't look at his cards !\n");
-        Utils.pauseForUser();
+        if (currentPlayer instanceof HumanPlayer) {
+            System.out.println("\nTo have fun, please don't look at his cards !\n");
+            Utils.pauseForUser();
+        }
     }
 
     private static List<BotPlayer> getBotPlayers(List<Player> players) {
