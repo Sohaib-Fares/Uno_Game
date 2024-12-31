@@ -119,14 +119,9 @@ public class GameService {
             } else {
                 System.out.println("Bot is playing . . . ");
 
-                // Utils.waitFor(2000);
-                System.out.println("************************");
-                System.out.println(currentPlayer.getHand());
-                System.out.println("************************");
+                Utils.waitFor(2000);
                 botPlays((BotPlayer) currentPlayer, currentCard);
-                System.out.println("************************");
-                System.out.println(currentPlayer.getHand());
-                System.out.println("************************");
+
                 Utils.pauseForUser();
             }
 
