@@ -1,10 +1,10 @@
 package AppTools.Deck;
 
-import AppTools.CardModel.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
+
+import AppTools.CardModel.*;
 
 public class Deck {
 
@@ -76,6 +76,7 @@ public class Deck {
         }
         return cards.remove(0);
     }
+    
     // TODO: Used for tests only, MUST-REMOVE in the end
     @Override
     public String toString() {

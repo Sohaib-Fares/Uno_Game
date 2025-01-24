@@ -2,6 +2,8 @@ package AppTools.Deck;
 
 import org.junit.jupiter.api.Test;
 
+import AppTools.Deck.Deck;
+
 class DeckTest {
 
     @Test
@@ -10,6 +12,5 @@ class DeckTest {
         System.out.println("Deck initialized");
         System.out.println(deck.toString());
     }
-
 
 }

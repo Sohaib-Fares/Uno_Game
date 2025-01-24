@@ -1,6 +1,7 @@
 package AppTools.PlayerModel;
 
 import java.util.ArrayList;
+
 import AppTools.CardModel.AbstractCard;
 
 public abstract class Player {

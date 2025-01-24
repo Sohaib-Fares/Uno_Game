@@ -46,7 +46,7 @@ public class RunningGameScreen {
 
     public static void showPlayerTurn(Player currentPlayer) {
         Utils.printTable("It's the turn of", currentPlayer.getName());
-        if (currentPlayer instanceof HumanPlayer) {
+        if (currentPlayer instanceof HumanPlayer && PlayerSetupScreen.MAX_PLAYERS > 2) {
             System.out.println("\nTo have fun, please don't look at his cards !\n");
             Utils.pauseForUser();
         }
@@ -66,7 +66,8 @@ public class RunningGameScreen {
             AbstractCard discardPileTop) {
         int rightPlayer = players.indexOf(currentPlayer);
 
-        System.out.println("================================== UNO GAME STATUS ==================================");
+        System.out.println(
+                "============================================== STATUS ==============================================");
         System.out.println();
 
         // Draw Deck and Discard Pile
@@ -95,7 +96,7 @@ public class RunningGameScreen {
     private static String getFlippedCardRepresentation(int cardCount) {
         StringBuilder flippedCards = new StringBuilder();
         for (int i = 0; i < cardCount; i++) {
-            flippedCards.append("🂠 "); 
+            flippedCards.append("🂠 ");
         }
         return flippedCards.toString();
     }

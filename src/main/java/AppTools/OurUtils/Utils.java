@@ -17,7 +17,6 @@ public class Utils {
         }
     }
 
-    // TODO: VERY USEFUL
     // Used to show some messages before going back to the main menu, so it forces
     // the user to hit enter.(Run the GameService to understand more)
     public static void pauseForUser() {

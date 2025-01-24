@@ -1,10 +1,9 @@
-import AppTools.Game.GameService;
-
 import java.io.IOException;
+import AppTools.Game.GameService;
 
 public class UnoApp {
     public static void main(String[] args) throws IOException {
-        GameService gameService = new GameService();
-        gameService.showGameMenu();
+        GameService service = new GameService();
+        service.showGameMenu();
     }
 }

@@ -12,10 +12,10 @@ import AppTools.CardModel.CardColorEnum;
 import AppTools.CardModel.CardTypeEnum;
 import AppTools.CardModel.WildCard;
 import AppTools.Deck.Deck;
-import AppTools.Game.Screens.PlayerSetupScreen;
-import AppTools.Game.Screens.RunningGameScreen;
 import AppTools.Game.Screens.GameOverScreen;
 import AppTools.Game.Screens.HowToPlayScreen;
+import AppTools.Game.Screens.PlayerSetupScreen;
+import AppTools.Game.Screens.RunningGameScreen;
 import AppTools.Game.Screens.WelcomeScreen;
 import AppTools.OurUtils.Utils;
 import AppTools.PlayerModel.BotPlayer;
@@ -118,7 +118,7 @@ public class GameService {
             } else {
                 System.out.println("Bot is playing . . . ");
 
-                Utils.waitFor(2000);
+                Utils.waitFor(500);
                 botPlays((BotPlayer) currentPlayer, currentCard);
 
                 Utils.pauseForUser();
