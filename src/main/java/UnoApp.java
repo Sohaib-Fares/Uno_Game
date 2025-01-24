@@ -1,7 +1,7 @@
 
 import java.io.IOException;
 
-import App.Game.GameService;
+import AppTools.Game.GameService;
 
 public class UnoApp {
     public static void main(String[] args) throws IOException {

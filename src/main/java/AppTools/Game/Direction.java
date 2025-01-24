@@ -1,4 +1,4 @@
-package App.Game;
+package AppTools.Game;
 
 public enum Direction {
     CLOCKWISE,

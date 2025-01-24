@@ -1,10 +1,10 @@
-package App.PlayerModel;
+package AppTools.PlayerModel;
 
 import java.util.Random;
 
-import App.CardModel.AbstractCard;
-import App.CardModel.CardColorEnum;
-import App.CardModel.WildCard;
+import AppTools.CardModel.AbstractCard;
+import AppTools.CardModel.CardColorEnum;
+import AppTools.CardModel.WildCard;
 
 public class BotPlayer extends Player {
 
@@ -30,7 +30,7 @@ public class BotPlayer extends Player {
                 // So that the bot could choose a random color when a wild played
                 if (currentCard instanceof WildCard) {
                     Random rand = new Random();
-                    ((WildCard)currentCard).setChosenColor(CardColorEnum.values()[rand.nextInt(4)]);
+                    ((WildCard) currentCard).setChosenColor(CardColorEnum.values()[rand.nextInt(4)]);
                 }
                 hand.remove(card);
                 return card;

@@ -1,15 +1,15 @@
-package App.Game.Screens;
+package AppTools.Game.Screens;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import App.CardModel.AbstractCard;
-import App.Deck.Deck;
-import App.Game.Direction;
-import App.OurUtils.Utils;
-import App.PlayerModel.BotPlayer;
-import App.PlayerModel.HumanPlayer;
-import App.PlayerModel.Player;
+import AppTools.CardModel.AbstractCard;
+import AppTools.Deck.Deck;
+import AppTools.Game.Direction;
+import AppTools.OurUtils.Utils;
+import AppTools.PlayerModel.BotPlayer;
+import AppTools.PlayerModel.HumanPlayer;
+import AppTools.PlayerModel.Player;
 
 public class RunningGameScreen {
     public RunningGameScreen() {
@@ -66,7 +66,8 @@ public class RunningGameScreen {
             AbstractCard discardPileTop) {
         int rightPlayer = players.indexOf(currentPlayer);
 
-        System.out.println("============================================== STATUS ==============================================");
+        System.out.println(
+                "============================================== STATUS ==============================================");
         System.out.println();
 
         // Draw Deck and Discard Pile
@@ -95,7 +96,7 @@ public class RunningGameScreen {
     private static String getFlippedCardRepresentation(int cardCount) {
         StringBuilder flippedCards = new StringBuilder();
         for (int i = 0; i < cardCount; i++) {
-            flippedCards.append("🂠 "); 
+            flippedCards.append("🂠 ");
         }
         return flippedCards.toString();
     }

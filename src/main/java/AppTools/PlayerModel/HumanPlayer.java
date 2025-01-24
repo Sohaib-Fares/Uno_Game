@@ -1,8 +1,8 @@
-package App.PlayerModel;
+package AppTools.PlayerModel;
 
 import java.util.ArrayList;
 
-import App.CardModel.AbstractCard;
+import AppTools.CardModel.AbstractCard;
 
 public class HumanPlayer extends Player {
 

@@ -1,14 +1,14 @@
-package App.Game;
+package AppTools.Game;
 
 import java.util.Random;
 import java.util.Scanner;
 
-import App.CardModel.CardColorEnum;
-import App.CardModel.WildCard;
-import App.Game.Screens.PlayerSetupScreen;
-import App.PlayerModel.BotPlayer;
-import App.PlayerModel.HumanPlayer;
-import App.PlayerModel.Player;
+import AppTools.CardModel.CardColorEnum;
+import AppTools.CardModel.WildCard;
+import AppTools.Game.Screens.PlayerSetupScreen;
+import AppTools.PlayerModel.BotPlayer;
+import AppTools.PlayerModel.HumanPlayer;
+import AppTools.PlayerModel.Player;
 
 public class CardsEffect {
 

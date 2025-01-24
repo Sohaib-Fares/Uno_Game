@@ -1,4 +1,4 @@
-package App.CardModel;
+package AppTools.CardModel;
 
 public abstract class AbstractCard {
     private final CardTypeEnum type;

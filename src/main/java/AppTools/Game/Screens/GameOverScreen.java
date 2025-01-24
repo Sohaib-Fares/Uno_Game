@@ -1,6 +1,6 @@
-package App.Game.Screens;
+package AppTools.Game.Screens;
 
-import App.OurUtils.Utils;
+import AppTools.OurUtils.Utils;
 
 public class GameOverScreen {
     public GameOverScreen() {

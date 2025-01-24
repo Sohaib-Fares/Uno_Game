@@ -1,13 +1,13 @@
-package App.Game.Screens;
+package AppTools.Game.Screens;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import App.CardModel.AbstractCard;
-import App.Deck.Deck;
-import App.PlayerModel.BotPlayer;
-import App.PlayerModel.HumanPlayer;
-import App.PlayerModel.Player;
+import AppTools.CardModel.AbstractCard;
+import AppTools.Deck.Deck;
+import AppTools.PlayerModel.BotPlayer;
+import AppTools.PlayerModel.HumanPlayer;
+import AppTools.PlayerModel.Player;
 
 public class PlayerSetupScreen {
 
