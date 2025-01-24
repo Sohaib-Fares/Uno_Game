@@ -1,15 +1,15 @@
-package AppTools.Game.Screens;
+package App.Game.Screens;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AppTools.CardModel.AbstractCard;
-import AppTools.Deck.Deck;
-import AppTools.Game.Direction;
-import AppTools.OurUtils.Utils;
-import AppTools.PlayerModel.BotPlayer;
-import AppTools.PlayerModel.HumanPlayer;
-import AppTools.PlayerModel.Player;
+import App.CardModel.AbstractCard;
+import App.Deck.Deck;
+import App.Game.Direction;
+import App.OurUtils.Utils;
+import App.PlayerModel.BotPlayer;
+import App.PlayerModel.HumanPlayer;
+import App.PlayerModel.Player;
 
 public class RunningGameScreen {
     public RunningGameScreen() {
@@ -46,7 +46,7 @@ public class RunningGameScreen {
 
     public static void showPlayerTurn(Player currentPlayer) {
         Utils.printTable("It's the turn of", currentPlayer.getName());
-        if (currentPlayer instanceof HumanPlayer) {
+        if (currentPlayer instanceof HumanPlayer && PlayerSetupScreen.MAX_PLAYERS > 2) {
             System.out.println("\nTo have fun, please don't look at his cards !\n");
             Utils.pauseForUser();
         }
@@ -66,7 +66,7 @@ public class RunningGameScreen {
             AbstractCard discardPileTop) {
         int rightPlayer = players.indexOf(currentPlayer);
 
-        System.out.println("================================== UNO GAME STATUS ==================================");
+        System.out.println("============================================== STATUS ==============================================");
         System.out.println();
 
         // Draw Deck and Discard Pile

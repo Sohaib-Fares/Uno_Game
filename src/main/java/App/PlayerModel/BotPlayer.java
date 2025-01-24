@@ -1,10 +1,10 @@
-package AppTools.PlayerModel;
+package App.PlayerModel;
 
 import java.util.Random;
 
-import AppTools.CardModel.AbstractCard;
-import AppTools.CardModel.CardColorEnum;
-import AppTools.CardModel.WildCard;
+import App.CardModel.AbstractCard;
+import App.CardModel.CardColorEnum;
+import App.CardModel.WildCard;
 
 public class BotPlayer extends Player {
 

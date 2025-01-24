@@ -1,30 +1,29 @@
-package AppTools.Game.Screens;
+package App.Game.Screens;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import AppTools.CardModel.AbstractCard;
-import AppTools.Deck.Deck;
-import AppTools.PlayerModel.BotPlayer;
-import AppTools.PlayerModel.HumanPlayer;
-import AppTools.PlayerModel.Player;
+import App.CardModel.AbstractCard;
+import App.Deck.Deck;
+import App.PlayerModel.BotPlayer;
+import App.PlayerModel.HumanPlayer;
+import App.PlayerModel.Player;
 
 public class PlayerSetupScreen {
 
-    private static final int MAX_PLAYERS = 4; // Maximum players in the game
+    public static int MAX_PLAYERS; // Maximum players in the game
     private static final int INITIAL_HAND_SIZE = 7; // Initial number of cards in each hand
 
     // Used to get the number of bots in the game
     private static int getBotCount(Scanner scanner) {
-
         System.out.println("Do you want to play with bots (y/N)?");
         String response = scanner.nextLine().trim().toLowerCase();
 
         if (response.equals("y")) {
-            System.out.println("How many bots you want to play with (0-3)?");
+            System.out.println("How many bots you want to play with (0-" + (MAX_PLAYERS - 1) + ")?");
             int botNum = -1;
 
-            while (!scanner.hasNextInt() || (botNum = scanner.nextInt()) < 0 || botNum > 3) {
+            while (!scanner.hasNextInt() || (botNum = scanner.nextInt()) < 0 || botNum > (MAX_PLAYERS - 1)) {
                 System.out.println("Please enter a valid number of bots (0-3):");
                 scanner.next();
             }
@@ -61,6 +60,17 @@ public class PlayerSetupScreen {
     // Used to setup the players
     public static ArrayList<Player> setupPlayers(Deck deck, Scanner scanner) {
         ArrayList<Player> players = new ArrayList<>();
+
+        do {
+            System.out.println("Enter the number of players you want to play with: (2-4)");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number between 2 and 4.");
+                scanner.next();
+            }
+            MAX_PLAYERS = scanner.nextInt();
+            scanner.nextLine();
+        } while (MAX_PLAYERS > 4 || MAX_PLAYERS < 2);
+
         int bots = getBotCount(scanner);
 
         if (bots != -1) {

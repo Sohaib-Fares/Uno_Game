@@ -1,4 +1,4 @@
-package AppTools.CardModel;
+package App.CardModel;
 
 import java.util.Objects;
 

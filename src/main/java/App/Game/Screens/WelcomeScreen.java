@@ -1,6 +1,6 @@
-package AppTools.Game.Screens;
+package App.Game.Screens;
 
-import AppTools.OurUtils.Utils;
+import App.OurUtils.Utils;
 
 public class WelcomeScreen {
     public static void showWelcomeScreen() {

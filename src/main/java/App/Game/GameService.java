@@ -1,4 +1,4 @@
-package AppTools.Game;
+package App.Game;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,22 +6,21 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-import AppTools.CardModel.AbstractCard;
-import AppTools.CardModel.ActionCard;
-import AppTools.CardModel.CardColorEnum;
-import AppTools.CardModel.CardTypeEnum;
-import AppTools.CardModel.NumberedCard;
-import AppTools.CardModel.WildCard;
-import AppTools.Deck.Deck;
-import AppTools.Game.Screens.PlayerSetupScreen;
-import AppTools.Game.Screens.RunningGameScreen;
-import AppTools.Game.Screens.GameOverScreen;
-import AppTools.Game.Screens.HowToPlayScreen;
-import AppTools.Game.Screens.WelcomeScreen;
-import AppTools.OurUtils.Utils;
-import AppTools.PlayerModel.BotPlayer;
-import AppTools.PlayerModel.HumanPlayer;
-import AppTools.PlayerModel.Player;
+import App.CardModel.AbstractCard;
+import App.CardModel.ActionCard;
+import App.CardModel.CardColorEnum;
+import App.CardModel.CardTypeEnum;
+import App.CardModel.WildCard;
+import App.Deck.Deck;
+import App.Game.Screens.GameOverScreen;
+import App.Game.Screens.HowToPlayScreen;
+import App.Game.Screens.PlayerSetupScreen;
+import App.Game.Screens.RunningGameScreen;
+import App.Game.Screens.WelcomeScreen;
+import App.OurUtils.Utils;
+import App.PlayerModel.BotPlayer;
+import App.PlayerModel.HumanPlayer;
+import App.PlayerModel.Player;
 
 public class GameService {
     private Deck deck = new Deck();
@@ -119,7 +118,7 @@ public class GameService {
             } else {
                 System.out.println("Bot is playing . . . ");
 
-                Utils.waitFor(2000);
+                Utils.waitFor(500);
                 botPlays((BotPlayer) currentPlayer, currentCard);
 
                 Utils.pauseForUser();
@@ -365,9 +364,4 @@ public class GameService {
         }
     }
 
-    // TODO: Used for tests only, MUST-REMOVE in the end
-    public static void main(String[] args) throws IOException {
-        GameService service = new GameService();
-        service.showGameMenu();
-    }
 }

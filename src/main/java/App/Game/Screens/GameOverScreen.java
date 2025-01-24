@@ -1,6 +1,6 @@
-package AppTools.Game.Screens;
+package App.Game.Screens;
 
-import AppTools.OurUtils.Utils;
+import App.OurUtils.Utils;
 
 public class GameOverScreen {
     public GameOverScreen() {
@@ -20,7 +20,12 @@ public class GameOverScreen {
         }
         Utils.clearScreen();
 
-        Utils.printTable("The winner", winnerName);
+        Utils.printTable("Winner", "And the winner is ....");
+        Utils.waitFor(900);
+
+        Utils.clearScreen();
+
+        Utils.printTable("Winner", winnerName);
         Utils.pauseForUser();
 
     }

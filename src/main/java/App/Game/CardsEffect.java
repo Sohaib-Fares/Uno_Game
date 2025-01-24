@@ -1,14 +1,14 @@
-package AppTools.Game;
-
-import AppTools.CardModel.AbstractCard;
-import AppTools.CardModel.CardColorEnum;
-import AppTools.CardModel.WildCard;
-import AppTools.PlayerModel.BotPlayer;
-import AppTools.PlayerModel.HumanPlayer;
-import AppTools.PlayerModel.Player;
+package App.Game;
 
 import java.util.Random;
 import java.util.Scanner;
+
+import App.CardModel.CardColorEnum;
+import App.CardModel.WildCard;
+import App.Game.Screens.PlayerSetupScreen;
+import App.PlayerModel.BotPlayer;
+import App.PlayerModel.HumanPlayer;
+import App.PlayerModel.Player;
 
 public class CardsEffect {
 
@@ -68,7 +68,7 @@ public class CardsEffect {
     }
 
     public int skipCardEffect(int currentIndex, Direction direction) {
-        final int MAX_PLAYERS = 4;
+        final int MAX_PLAYERS = PlayerSetupScreen.MAX_PLAYERS;
 
         if (direction == Direction.CLOCKWISE) {
             return (currentIndex + 2) % MAX_PLAYERS;
