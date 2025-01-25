@@ -14,20 +14,16 @@ JavUno is a Java-based implementation of the popular card game Uno. This project
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/JavUno.git
-    cd JavUno
-    ```
-
-2. Build the project using Maven:
-    ```sh
-    mvn clean install
+    git clone https://github.com/your-username/Uno_Game.git
+    cd Uno_Game\src\main\java
     ```
 
 ## Usage
 
 To start the game:
 ```sh
-mvn exec:java -Dexec.mainClass="UnoApp"
+javac UnoApp.java
+java UnoApp
 ```
 
 ## Game Rules
