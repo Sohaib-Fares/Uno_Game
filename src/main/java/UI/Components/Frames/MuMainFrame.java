@@ -2,19 +2,32 @@ package UI.Components.Frames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+
 import UI.Components.Cards.MuNumberedCard;
 import UI.Components.Cards.MuWildCard;
 import UI.Components.Utils.MuMainBackgroundPanel;
+import UI.Constatnts.MuColors;
 
 public class MuMainFrame extends JFrame {
     public MuMainFrame() {
         super.setSize(900, 900);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.setLayout(new BorderLayout());
         super.setLocationRelativeTo(null);
+        ImageIcon image = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
+        super.setIconImage(image.getImage());
 
-        Color[] colors = { new Color(0xe21b1b), new Color(0x0098dc), new Color(0x00aa4e), new Color(0xffd600) };
+        Color[] colors = { MuColors.MuBlue, MuColors.MuGreen, MuColors.MuRed, MuColors.MuYellow };
         String[] symbols = { "⊘", "⟲", "+2", "W", "+4" };
 
         // JPanel mainCardArea = new JPanel();
@@ -42,11 +55,19 @@ public class MuMainFrame extends JFrame {
 
         // super.add(scrol);
 
-        // MainBackgroundPanel background = new MainBackgroundPanel(new
-        // OvalGradientPaintSurface());
+        MuMainBackgroundPanel backgroundPanel = new MuMainBackgroundPanel();
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new GridBagLayout());
+        MuMenuPanel menu = new MuMenuPanel();
 
-        // super.add(background);
-        super.add(new MuMainBackgroundPanel(), BorderLayout.CENTER);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0; // Column 0
+        gbc.gridy = 0; // Row 0
+        gbc.weightx = 1.0; // Request horizontal space
+        gbc.weighty = 1.0; // Request vertical space
+        gbc.anchor = GridBagConstraints.CENTER; // Center the component
+
+        backgroundPanel.add(menu, gbc);
         super.setLocationByPlatform(false);
         super.setVisible(true);
     }
