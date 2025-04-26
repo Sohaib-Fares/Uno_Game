@@ -1,4 +1,10 @@
+import java.awt.Color;
 import java.io.IOException;
+
+import javax.swing.JFrame;
+
+import UI.Components.Buttons.MuButton;
+import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Frames.MuMainFrame;
 
 public class MainApp {
@@ -7,6 +13,7 @@ public class MainApp {
         // service.showGameMenu();
         // ...
         new MuMainFrame();
+        
 
     }
 }

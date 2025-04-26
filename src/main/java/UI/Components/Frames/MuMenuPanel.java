@@ -98,9 +98,9 @@ public class MuMenuPanel extends JPanel {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        MuOutlinedButton startButton = new MuOutlinedButton("Start Game", Color.RED, Color.WHITE);
-        MuOutlinedButton howToPlayButton = new MuOutlinedButton("How to Play", new Color(255, 204, 102), Color.BLACK);
-        MuOutlinedButton exitButton = new MuOutlinedButton("Exit", Color.GRAY, Color.WHITE);
+        MuOutlinedButton startButton = new MuOutlinedButton("Start Game", Color.RED, Color.WHITE, 80,80);
+        MuOutlinedButton howToPlayButton = new MuOutlinedButton("How to Play", new Color(255, 204, 102), Color.BLACK, 80, 80 );
+        MuOutlinedButton exitButton = new MuOutlinedButton("Exit", Color.GRAY, Color.WHITE,80 ,80);
 
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         howToPlayButton.setAlignmentX(Component.CENTER_ALIGNMENT);
