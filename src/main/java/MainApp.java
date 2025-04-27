@@ -7,6 +7,5 @@ public class MainApp {
         // service.showGameMenu();
         // ...
         new MuMainFrame();
-
     }
 }

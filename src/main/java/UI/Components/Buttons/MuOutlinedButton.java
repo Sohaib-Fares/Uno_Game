@@ -1,46 +1,37 @@
 package UI.Components.Buttons;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
-import javax.swing.JButton;
+/**
+ * An outlined button variant with a larger corner radius of 40.
+ * This button style is designed for secondary actions with a more rounded
+ * appearance.
+ * Inherits core functionality from MuButton while enforcing a consistent corner
+ * radius.
+ */
+public class MuOutlinedButton extends MuButton {
+    private static final int OUTLINED_RADIUS = 40;
 
-public class MuOutlinedButton extends JButton {
-    public MuOutlinedButton(String text, Color bgColor, Color textColor) {
-        super(text);
+    /**
+     * Creates an outlined button with the specified text and styling properties.
+     * Uses a fixed corner radius of 40 pixels.
+     *
+     * @param text             Button label text
+     * @param bgColor          Background color
+     * @param textColor        Text color
+     * @param fontSize         Text font size
+     * @param width            Button width in pixels
+     * @param height           Button height in pixels
+     * @param outlineThickness Thickness of the outline border
+     * @param outlineColor     Color of the outline border
+     */
 
-        super.setFont(new Font("Arial", Font.BOLD, 16));
-        super.setBackground(bgColor);
-        super.setForeground(textColor);
-        super.setFocusPainted(false);
-        super.setBorderPainted(false);
-        super.setContentAreaFilled(false);
-        super.setOpaque(false);
-        super.setAlignmentX(Component.CENTER_ALIGNMENT);
-        super.setMaximumSize(new Dimension(300, 50));
-        super.setPreferredSize(new Dimension(300, 50));
-
-        super.setVisible(true);
+    public MuOutlinedButton(String text, Color bgColor, Color textColor, int fontSize, int width, int height) {
+        super(text, bgColor, textColor, fontSize, width, height, OUTLINED_RADIUS);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(getBackground());
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 25, 25);
-        super.paintComponent(g);
+    public MuOutlinedButton(String text, Color bgColor, Color textColor, int fontSize, int width, int height,
+            int outlineThickness, Color outlineColor) {
+        super(text, bgColor, textColor, fontSize, width, height, OUTLINED_RADIUS, outlineThickness, outlineColor);
     }
-
-    // @Override
-    // protected void paintBorder(Graphics g) {
-    // Graphics2D g2 = (Graphics2D) g;
-    // g2.setColor(getBackground().darker());
-    // g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 25, 25);
-    // }
 }

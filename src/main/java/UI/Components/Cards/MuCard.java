@@ -16,6 +16,7 @@ import javax.swing.JPanel;
  * class.
  */
 public class MuCard extends JPanel {
+    private boolean border;
     private Color cardColor; // The main background color of the card
     private int arcSize = 30; // The radius for the rounded corners
 
@@ -39,7 +40,6 @@ public class MuCard extends JPanel {
         // Get the current dimensions of the component
         int width = getWidth();
         int height = getHeight();
-        int borderThickness = 3; // Define the thickness of the card's border
 
         // --- Draw Background ---
         // Set the drawing color to the card's specific color
@@ -59,6 +59,7 @@ public class MuCard extends JPanel {
         g2d.fillOval(circleX, circleY, circleDiameter, circleDiameter);
 
         // --- Draw Border ---
+        int borderThickness = 3; // Define the thickness of the card's border
         // Set the drawing color to black for the border
         g2d.setColor(Color.BLACK);
         // Set the stroke (line style) for the border thickness
@@ -73,6 +74,7 @@ public class MuCard extends JPanel {
         g2d.dispose();
         // Call the superclass's paintComponent method to ensure child components are
         // drawn
+
         super.paintComponent(g);
     }
 

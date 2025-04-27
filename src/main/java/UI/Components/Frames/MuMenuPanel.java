@@ -1,7 +1,8 @@
 package UI.Components.Frames;
 
 import javax.swing.*;
-import UI.Components.Buttons.MuOutlinedButton;
+
+import UI.Components.Buttons.MuFilledButton;
 import UI.Constatnts.MuColors;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -10,7 +11,8 @@ public class MuMenuPanel extends JPanel {
 
     public MuMenuPanel() {
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(550, 700));
 
         JPanel topPanel = new JPanel() {
             @Override
@@ -23,31 +25,31 @@ public class MuMenuPanel extends JPanel {
                 g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
                 Point2D center = new Point2D.Float(width / 2f, height / 2f);
-                float radius = 500f;
-                float[] dist = { 0.0f, 0.5f, 1.0f };
-                Color[] colors = { MuColors.MuRed.darker(), MuColors.MuRed.brighter(),
-                        MuColors.MuRed.brighter().brighter() };
+                float radius = 300f;
+                float[] dist = { 0.0f, 1.0f };
+                Color[] colors = {
+                        MuColors.MuRed.brighter(), // Center bright red
+                        MuColors.MuRed.darker() // Outer deep red
+                };
                 RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
 
                 g2d.setPaint(p);
                 g2d.fillRect(0, 0, width, height);
             }
         };
-        topPanel.setLayout(new BorderLayout());
-        topPanel.setBackground(Color.RED);
 
         ImageIcon originalIcon = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
         JLabel JUNO; // Declare JLabel
 
         if (originalIcon.getIconWidth() == -1) {
             System.err.println("Warning: Could not load image icon at src/main/java/UI/Assets/JUNO.png");
-            JUNO = new JLabel("JUNO Logo Missing"); 
-            JUNO.setHorizontalAlignment(JLabel.CENTER); 
+            JUNO = new JLabel("JUNO Logo Missing");
+            JUNO.setHorizontalAlignment(JLabel.CENTER);
             JUNO.setForeground(Color.WHITE);
         } else {
             // Define desired size
-            int desiredWidth = 150; // Example width
-            int desiredHeight = 100; // Example height
+            int desiredWidth = 250;
+            int desiredHeight = 250;
 
             // Scale the image
             Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight,
@@ -59,13 +61,12 @@ public class MuMenuPanel extends JPanel {
             // Create the JLabel with the scaled icon
             JUNO = new JLabel(scaledIcon);
             // Center the image within the JLabel's area if the JLabel is larger
-            JUNO.setHorizontalAlignment(JLabel.CENTER);
-            JUNO.setVerticalAlignment(JLabel.CENTER);
         }
+        topPanel.setLayout(new BorderLayout());
         topPanel.add(JUNO, BorderLayout.CENTER);
 
-        int desiredWidth = 150; // Example width
-        int desiredHeight = 150; // Example height, maintain aspect ratio if needed
+        int desiredWidth = 250;
+        int desiredHeight = 250;
 
         // Scale the image
         Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
@@ -79,18 +80,16 @@ public class MuMenuPanel extends JPanel {
         JUNO.setHorizontalAlignment(JLabel.CENTER);
         JUNO.setVerticalAlignment(JLabel.CENTER);
         JUNO.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        topPanel.add(JUNO);
+        topPanel.add(JUNO, BorderLayout.CENTER);
 
-        JLabel subtitleLabel = new JLabel("JUNO Game", JLabel.CENTER);
-        subtitleLabel.setFont(new Font("Lato", Font.BOLD, 16));
-        subtitleLabel.setForeground(Color.WHITE);
-        topPanel.add(subtitleLabel, BorderLayout.SOUTH);
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        topPanel.setPreferredSize(new Dimension(desiredWidth + 50, desiredHeight + 50));
 
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
-        bottomPanel.setBackground(Color.WHITE);
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+        // Create a new panel to add
+        JPanel middlePanel = new JPanel();
+        middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
+        middlePanel.setBackground(Color.WHITE);
+        middlePanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 20, 20));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
@@ -98,40 +97,49 @@ public class MuMenuPanel extends JPanel {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        MuOutlinedButton startButton = new MuOutlinedButton("Start Game", Color.RED, Color.WHITE);
-        MuOutlinedButton howToPlayButton = new MuOutlinedButton("How to Play", new Color(255, 204, 102), Color.BLACK);
-        MuOutlinedButton exitButton = new MuOutlinedButton("Exit", Color.GRAY, Color.WHITE);
+        MuFilledButton startButton = new MuFilledButton("Start Game", Color.RED, Color.WHITE, 20, 80, 50);
+        MuFilledButton howToPlayButton = new MuFilledButton("How to Play", new Color(255, 204, 102), Color.BLACK, 20,
+                80,
+                50);
+        MuFilledButton exitButton = new MuFilledButton("Exit", Color.GRAY.darker(), Color.WHITE, 20, 80, 50);
 
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        howToPlayButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Dimension maxButtonSize = new Dimension(Integer.MAX_VALUE, startButton.getPreferredSize().height);
+        startButton.setMaximumSize(maxButtonSize);
+
+        Dimension maxHowToPlaySize = new Dimension(Integer.MAX_VALUE, howToPlayButton.getPreferredSize().height);
+        howToPlayButton.setMaximumSize(maxHowToPlaySize);
+
+        Dimension maxExitSize = new Dimension(Integer.MAX_VALUE, exitButton.getPreferredSize().height);
+        exitButton.setMaximumSize(maxExitSize);
 
         buttonPanel.add(startButton);
-        buttonPanel.add(Box.createVerticalStrut(15));
+        buttonPanel.add(Box.createVerticalStrut(20));
         buttonPanel.add(howToPlayButton);
-        buttonPanel.add(Box.createVerticalStrut(15));
+        buttonPanel.add(Box.createVerticalStrut(20));
         buttonPanel.add(exitButton);
-        buttonPanel.add(Box.createVerticalStrut(40));
+
+        middlePanel.add(buttonPanel);
 
         JPanel circlePanel = new JPanel();
-        circlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        circlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
         circlePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         circlePanel.add(createCircle(MuColors.MuRed));
         circlePanel.add(createCircle(MuColors.MuYellow));
         circlePanel.add(createCircle(MuColors.MuGreen));
         circlePanel.add(createCircle(MuColors.MuBlue));
+        circlePanel.add(Box.createVerticalStrut(15));
         circlePanel.setBackground(Color.WHITE);
 
+        circlePanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, this.getPreferredSize().height / 8));
         circlePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, circlePanel.getPreferredSize().height));
 
-        bottomPanel.add(buttonPanel);
-        bottomPanel.add(circlePanel);
+        add(topPanel, BorderLayout.NORTH);
+        add(middlePanel, BorderLayout.CENTER);
 
-        add(topPanel);
-        add(bottomPanel);
+        add(circlePanel, BorderLayout.SOUTH);
         setOpaque(false);
-        setBorder(BorderFactory.createLineBorder(Color.white, 10, true));
+        setBorder(BorderFactory.createLineBorder(Color.white, 3, true));
 
     }
 
@@ -144,7 +152,7 @@ public class MuMenuPanel extends JPanel {
 
                 int width = getWidth();
                 int height = getHeight();
-                float strokeWidth = 8f; // Define stroke width
+                float strokeWidth = 6f; // Define stroke width
 
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(color);
@@ -161,7 +169,7 @@ public class MuMenuPanel extends JPanel {
 
             @Override
             public Dimension getPreferredSize() {
-                return new Dimension(40, 40);
+                return new Dimension(60, 60);
             }
         };
 
