@@ -15,7 +15,7 @@ import java.awt.RenderingHints;
  * Serves as the base class for all button variants in the game.
  */
 public class MuButton extends JButton {
-    private int cornerRadius;  // Controls the roundness of button corners
+    private int cornerRadius; // Controls the roundness of button corners
     private int outlineThickness; // Thickness of the button outline border
     private Color outlineColor; // Color of the button outline border
 
@@ -23,29 +23,31 @@ public class MuButton extends JButton {
      * Creates a button with specified text, colors, dimensions and corner radius.
      * No outline will be drawn.
      * 
-     * @param text Button label text
-     * @param bgColor Background color
-     * @param textColor Text color
-     * @param width Button width in pixels
-     * @param height Button height in pixels
-     * @param cornerRadius Radius of rounded corners
+     * @param text             Button label text
+     * @param bgColor          Background color
+     * @param textColor        Text color
+     * @param fontSize         Text font size
+     * @param width            Button width in pixels
+     * @param height           Button height in pixels
+     * @param cornerRadius     Radius of rounded corners
      * @param outlineThickness Thickness of the outline border (0 for no outline)
-     * @param outlineColor Color of the outline border
+     * @param outlineColor     Color of the outline border
      */
 
-
-    public MuButton(String text, Color bgColor, Color textColor, int width, int height, int cornerRadius) {
-        this(text, bgColor, textColor, width, height, cornerRadius, 0, Color.BLACK);    
+    public MuButton(String text, Color bgColor, Color textColor, int fontSize, int width, int height,
+            int cornerRadius) {
+        this(text, bgColor, textColor, fontSize, width, height, cornerRadius, 0, Color.BLACK);
     }
 
-    public MuButton(String text, Color bgColor, Color textColor, int width, int height, int cornerRadius, int outlineThickness, Color outlineColor) {
+    public MuButton(String text, Color bgColor, Color textColor, int fontSize, int width, int height, int cornerRadius,
+            int outlineThickness, Color outlineColor) {
         super(text);
 
         this.cornerRadius = cornerRadius;
         this.outlineThickness = outlineThickness;
         this.outlineColor = outlineColor;
 
-        setFont(new Font("Noto Sans Symbols", Font.BOLD, 16));
+        setFont(new Font("Lato", Font.BOLD, fontSize));
         setBackground(bgColor);
         setForeground(textColor);
         setFocusPainted(false);
@@ -78,10 +80,9 @@ public class MuButton extends JButton {
             int adjust = outlineThickness / 2;
 
             g2.drawRoundRect(
-                adjust, adjust,
-                getWidth() - outlineThickness, getHeight() - outlineThickness,
-                cornerRadius - adjust, cornerRadius - adjust
-            );
+                    adjust, adjust,
+                    getWidth() - outlineThickness, getHeight() - outlineThickness,
+                    cornerRadius - adjust, cornerRadius - adjust);
         }
 
         g2.dispose();
