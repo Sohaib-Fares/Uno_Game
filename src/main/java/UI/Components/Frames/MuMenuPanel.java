@@ -1,7 +1,10 @@
 package UI.Components.Frames;
 
 import javax.swing.*;
+
+import UI.Components.Buttons.MuFilledButton;
 import UI.Components.Buttons.MuOutlinedButton;
+import UI.Components.Labels.MuCircleLabel;
 import UI.Constatnts.MuColors;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -98,9 +101,9 @@ public class MuMenuPanel extends JPanel {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        MuOutlinedButton startButton = new MuOutlinedButton("Start Game", Color.RED, Color.WHITE, 80,80);
-        MuOutlinedButton howToPlayButton = new MuOutlinedButton("How to Play", new Color(255, 204, 102), Color.BLACK, 80, 80 );
-        MuOutlinedButton exitButton = new MuOutlinedButton("Exit", Color.GRAY, Color.WHITE,80 ,80);
+        MuFilledButton startButton = new MuFilledButton("Start Game", Color.RED, Color.WHITE, 16, 300,50, 1, Color.black);
+        MuFilledButton howToPlayButton = new MuFilledButton("How to Play", new Color(255, 204, 102), Color.BLACK, 16, 300, 50, 1, Color.black );
+        MuFilledButton exitButton = new MuFilledButton("Exit", Color.GRAY, Color.WHITE, 16,300 ,50, 1, Color.black);
 
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         howToPlayButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -117,10 +120,10 @@ public class MuMenuPanel extends JPanel {
         circlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
         circlePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        circlePanel.add(createCircle(MuColors.MuRed));
-        circlePanel.add(createCircle(MuColors.MuYellow));
-        circlePanel.add(createCircle(MuColors.MuGreen));
-        circlePanel.add(createCircle(MuColors.MuBlue));
+        circlePanel.add(new MuCircleLabel(MuColors.MuRed));
+        circlePanel.add(new MuCircleLabel(MuColors.MuYellow));
+        circlePanel.add(new MuCircleLabel(MuColors.MuGreen));
+        circlePanel.add(new MuCircleLabel(MuColors.MuBlue));
         circlePanel.setBackground(Color.WHITE);
 
         circlePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, circlePanel.getPreferredSize().height));
@@ -132,40 +135,5 @@ public class MuMenuPanel extends JPanel {
         add(bottomPanel);
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.white, 10, true));
-
-    }
-
-    private JPanel createCircle(Color color) {
-        JPanel circle = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-
-                int width = getWidth();
-                int height = getHeight();
-                float strokeWidth = 8f; // Define stroke width
-
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(color);
-                g2.fillOval((int) (strokeWidth / 2), (int) (strokeWidth / 2), width - (int) strokeWidth,
-                        height - (int) strokeWidth);
-                g2.setColor(Color.BLACK);
-                g2.setStroke(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-
-                int inset = (int) (strokeWidth / 2);
-                g2.drawOval(inset, inset, width - (int) strokeWidth, height - (int) strokeWidth);
-
-                g2.dispose();
-            }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(40, 40);
-            }
-        };
-
-        circle.setOpaque(false);
-        return circle;
     }
 }
