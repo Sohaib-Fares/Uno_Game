@@ -10,7 +10,7 @@ import java.awt.Color;
  * radius.
  */
 public class MuOutlinedButton extends MuButton {
-    private static final int OUTLINED_RADIUS = 10;
+    private static final int OUTLINED_RADIUS = 40;
 
     /**
      * Creates an outlined button with the specified text and styling properties.
