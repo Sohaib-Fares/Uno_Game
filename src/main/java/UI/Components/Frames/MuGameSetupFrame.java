@@ -54,9 +54,9 @@ public class MuGameSetupFrame extends JFrame {
         menuPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
         
         // Set fixed size for menu panel
-        menuPanel.setPreferredSize(new Dimension(500, 700));
-        menuPanel.setMaximumSize(new Dimension(500, 700));
-        menuPanel.setMinimumSize(new Dimension(500, 700));
+        menuPanel.setPreferredSize(new Dimension(550, 700));
+        menuPanel.setMaximumSize(new Dimension(550, 700));
+        menuPanel.setMinimumSize(new Dimension(550, 700));
 
         // Create and add the top panel with BorderLayout
         JPanel topPanel = createTopPanel();
@@ -122,7 +122,7 @@ public class MuGameSetupFrame extends JFrame {
         // Center logo in the panel
         int logoWidth = 175;
         int logoHeight = 175;
-        logoLabel.setBounds((500 - logoWidth) / 2, (200 - logoHeight + 50) / 2, logoWidth, logoHeight);
+        logoLabel.setBounds((500 - logoWidth + 50) / 2, (200 - logoHeight + 50) / 2, logoWidth, logoHeight);
         
         // Add components to layered pane with different z-order
         layeredPane.add(logoLabel, Integer.valueOf(0));  // Background layer
@@ -140,14 +140,14 @@ public class MuGameSetupFrame extends JFrame {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
         bottomPanel.setBackground(Color.WHITE);
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         // Create player section panel with BoxLayout Y_AXIS
         JPanel playerSection = new JPanel();
         playerSection.setLayout(new BoxLayout(playerSection, BoxLayout.Y_AXIS));
         playerSection.setBackground(Color.WHITE);
-        playerSection.setMinimumSize(new Dimension(400, 400));
-        playerSection.setBorder(BorderFactory.createEmptyBorder(15, 30, 0, 30));
+        playerSection.setMinimumSize(new Dimension(400, 550));
+        playerSection.setBorder(BorderFactory.createEmptyBorder(15, 30, 5, 30));
         playerSection.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add player panels with spacing
@@ -172,25 +172,25 @@ public class MuGameSetupFrame extends JFrame {
         JPanel addRemovePanel = new JPanel();
         addRemovePanel.setLayout(new BorderLayout());
         addRemovePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        addRemovePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        addRemovePanel.setPreferredSize(new Dimension(600, 50));
+        addRemovePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
+        addRemovePanel.setPreferredSize(new Dimension(600, 60));
         addRemovePanel.setBackground(Color.WHITE);
         
 
         // Create left button
         MuFilledButton addButton = new MuFilledButton
-        ("+  Add Player", MuColors.MuGreen, Color.WHITE, 16, 140, 40);
+        ("+  Add Player", MuColors.MuGreen, Color.WHITE, 16, 140, 45);
 
         // Create right button
         MuFilledButton removeButton = new MuFilledButton
-        ("-  Remove", MuColors.MuRed, Color.WHITE, 16, 140, 40);
+        ("-  Remove", MuColors.MuRed, Color.WHITE, 16, 140, 45);
 
         // Create left and right panels to hold buttons
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 20, 0));
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 20,7 ));
         leftPanel.setOpaque(false);
         leftPanel.add(addButton);
 
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING, 20, 0));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING, 20, 7));
         rightPanel.setOpaque(false);
         rightPanel.add(removeButton);
 
@@ -203,10 +203,10 @@ public class MuGameSetupFrame extends JFrame {
         startGamePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         startGamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         startGamePanel.setBackground(Color.WHITE);
-        startGamePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
+        startGamePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         
         // Add Start Game button
-        MuFilledButton startGameButton = new MuFilledButton("Start Game", MuColors.MuYellow, Color.black, 16, 420, 40, 1, Color.black);
+        MuFilledButton startGameButton = new MuFilledButton("Start Game", MuColors.MuYellow, Color.black, 16, 420, 50, 1, Color.black);
         startGamePanel.add(startGameButton);
         
         // Add all sections to bottom panel
