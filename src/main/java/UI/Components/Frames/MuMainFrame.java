@@ -20,6 +20,7 @@ public class MuMainFrame extends JFrame {
     public static final String GAME_SETUP_PANEL = "MuGameSetupPanel";
     public static final String GAME_PLAY_PANEL = "MuGamePlayPanel";
 
+
     // Add more panel names as needed
     public MuMainFrame() {
         super("JUno"); // Set a title
@@ -46,6 +47,7 @@ public class MuMainFrame extends JFrame {
         MuHowToPlayPanel howToPlayPanel = new MuHowToPlayPanel(this);
         MuGameSetupPanel gameSetupPanel = new MuGameSetupPanel(this); // Create this
         MuGamePlayPanel gamePlayPanel = new MuGamePlayPanel(this); // Create this
+
         // panel later
 
         // --- Wrap MuMenuPanel to allow centering ---
@@ -59,6 +61,7 @@ public class MuMainFrame extends JFrame {
         contentContainer.add(howToPlayPanel, HOW_TO_PLAY_PANEL); // Add HowToPlayPanel directly
         contentContainer.add(gameSetupPanel, GAME_SETUP_PANEL);
         contentContainer.add(gamePlayPanel, GAME_PLAY_PANEL); // Add Game
+
         // Add other panels here
 
         // Add the contentContainer to the backgroundPanel

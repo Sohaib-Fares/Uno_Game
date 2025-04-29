@@ -1,4 +1,5 @@
 import java.io.IOException;
+
 import UI.Components.Frames.MuMainFrame;
 
 public class MainApp {
