@@ -23,9 +23,11 @@ public class MuMainFrame extends JFrame {
     public MuMainFrame() {
         super("JUno"); // Set a title
         super.setSize(900, 900);
-        super.setMinimumSize(new Dimension(900, 900));
+        super.setPreferredSize(new Dimension(900, 900));
+        super.setMinimumSize(new Dimension(900, 700));
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setLocationRelativeTo(null);
+
         ImageIcon image = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
         super.setIconImage(image.getImage());
 
@@ -41,7 +43,7 @@ public class MuMainFrame extends JFrame {
         // Create and add the different view panels
         MuMenuPanel menuPanel = new MuMenuPanel(this); // Pass frame reference
         MuHowToPlayPanel howToPlayPanel = new MuHowToPlayPanel(this);
-        // GameSetupPanel gameSetupPanel = new GameSetupPanel(this); // Create this
+        MuGamePlayPanel gameSetupPanel = new MuGamePlayPanel(this); // Create this
         // panel later
 
         // --- Wrap MuMenuPanel to allow centering ---
@@ -53,7 +55,7 @@ public class MuMainFrame extends JFrame {
         // Add the wrapper instead of the menuPanel directly
         contentContainer.add(menuWrapper, MENU_PANEL);
         contentContainer.add(howToPlayPanel, HOW_TO_PLAY_PANEL); // Add HowToPlayPanel directly
-        // contentContainer.add(gameSetupPanel, GAME_SETUP_PANEL);
+        contentContainer.add(gameSetupPanel, GAME_SETUP_PANEL);
         // Add other panels here
 
         // Add the contentContainer to the backgroundPanel

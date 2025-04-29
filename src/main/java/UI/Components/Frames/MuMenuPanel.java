@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
 public class MuMenuPanel extends JPanel {
 
     private MuMainFrame mainFrame; // Reference to the main frame
-    
+
     public MuMenuPanel(MuMainFrame frame) { // Accept MuMainFrame in constructor
         this.mainFrame = frame;
 
@@ -134,7 +134,7 @@ public class MuMenuPanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // mainFrame.switchToPanel(MuMainFrame.GAME_SETUP_PANEL); // Switch to game
+                mainFrame.switchToPanel(MuMainFrame.GAME_SETUP_PANEL); // Switch to game
                 // setup view
                 System.out.println("Start Game Clicked - Implement GameSetupPanel"); // Placeholder
             }
