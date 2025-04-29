@@ -6,6 +6,6 @@ import java.awt.Color;
 
 public class MuThings {
     public static final Color[] colors = { MuColors.MuBlue, MuColors.MuGreen, MuColors.MuRed, MuColors.MuYellow };
-    public static final String[] symbols = { "⊘", "⟲", "+2", "W", "+4" };
+    public static final String[] symbols = { "⊘", "⟲", "+2", "W", "+4", "➜" };
 
 }
