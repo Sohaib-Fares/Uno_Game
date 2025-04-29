@@ -30,7 +30,7 @@ public class GameService {
     private AbstractCard currentCard;
     private Boolean gameOver = null;
     private Direction gameDirection;
-    private boolean nextDrawsCards = false;
+    private boolean nextDrawsCards = false;  
     private boolean nextSkip = false;
     private int cardsToDraw = 0;
 
