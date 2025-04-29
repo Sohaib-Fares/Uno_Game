@@ -69,15 +69,20 @@ public class MuButton extends JButton {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Fill background
+        // Calculate the adjustments needed for the fill area when an outline is present
+        int adjust = outlineThickness > 0 ? outlineThickness / 2 : 0;
+
+        // Fill background (adjusted inward when outline is present)
         g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+        g2.fillRoundRect(
+                adjust, adjust,
+                getWidth() - 2 * adjust, getHeight() - 2 * adjust,
+                cornerRadius - adjust, cornerRadius - adjust);
 
         // Optional outline
         if (outlineThickness > 0) {
             g2.setColor(outlineColor);
             g2.setStroke(new java.awt.BasicStroke(outlineThickness));
-            int adjust = outlineThickness / 2;
 
             g2.drawRoundRect(
                     adjust, adjust,
