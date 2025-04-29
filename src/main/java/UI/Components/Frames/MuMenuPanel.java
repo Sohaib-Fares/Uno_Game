@@ -2,6 +2,7 @@ package UI.Components.Frames;
 
 import javax.swing.*;
 import UI.Components.Buttons.MuFilledButton;
+import UI.Components.Labels.MuCircleLabel;
 import UI.Constatnts.MuColors;
 import java.awt.*;
 import java.awt.event.ActionEvent; // Import ActionEvent
@@ -112,10 +113,10 @@ public class MuMenuPanel extends JPanel {
         circlePanel.setBackground(Color.WHITE);
         circlePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0)); // Padding top/bottom
 
-        circlePanel.add(createCircle(MuColors.MuRed));
-        circlePanel.add(createCircle(MuColors.MuYellow));
-        circlePanel.add(createCircle(MuColors.MuGreen));
-        circlePanel.add(createCircle(MuColors.MuBlue));
+        circlePanel.add(new MuCircleLabel(MuColors.MuRed));
+        circlePanel.add(new MuCircleLabel(MuColors.MuYellow));
+        circlePanel.add(new MuCircleLabel(MuColors.MuGreen));
+        circlePanel.add(new MuCircleLabel(MuColors.MuBlue));
 
         // Set preferred and maximum height for the circle panel
         int circlePanelHeight = 80; // Adjust as needed
@@ -163,41 +164,5 @@ public class MuMenuPanel extends JPanel {
                 }
             }
         });
-    }
-
-    private JPanel createCircle(Color color) {
-        JPanel circle = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-
-                int width = getWidth();
-                int height = getHeight();
-                float strokeWidth = 4f; // Adjusted stroke width
-
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(color);
-                // Fill slightly smaller oval to account for stroke
-                g2.fillOval((int) (strokeWidth / 2), (int) (strokeWidth / 2), (int) (width - strokeWidth),
-                        (int) (height - strokeWidth));
-
-                // Draw border
-                g2.setColor(Color.BLACK);
-                g2.setStroke(new BasicStroke(2f)); // Thinner border stroke
-                g2.drawOval((int) (strokeWidth / 2), (int) (strokeWidth / 2), (int) (width - strokeWidth),
-                        (int) (height - strokeWidth));
-
-                // g2.dispose(); // Dispose is handled by Swing
-            }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(50, 50); // Slightly smaller circles
-            }
-        };
-
-        circle.setOpaque(false); // Important for transparency
-        return circle;
     }
 }

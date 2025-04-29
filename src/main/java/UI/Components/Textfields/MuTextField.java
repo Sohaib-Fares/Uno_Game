@@ -16,7 +16,7 @@ public class MuTextField extends JTextField {
     
     private String placeholder;
     private boolean isPlaceholderShowing;
-    private int borderRadius = 10; // Default border radius
+    private int borderRadius = 7; // Default border radius
     private static final int BORDER_THICKNESS = 1; // Consistent border thickness
     
     /**
@@ -86,7 +86,7 @@ public class MuTextField extends JTextField {
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setColor(borderColor);
+            g2d.setColor(borderColor.brighter());
             g2d.setStroke(new BasicStroke(thickness));
             g2d.draw(new RoundRectangle2D.Double(x + thickness / 2.0, y + thickness / 2.0, 
                     width - thickness, height - thickness, radius, radius));
@@ -156,6 +156,27 @@ public class MuTextField extends JTextField {
     }
     
     /**
+     * Sets the text and ensures placeholder mode is properly handled
+     * 
+     * @param text The text to set in the field
+     */
+    public void setActualText(String text) {
+        // Only change display if the text is different
+        if (!text.equals(getText()) || isPlaceholderShowing) {
+            super.setText(text);
+            // If we're setting real text, we're not showing the placeholder
+            if (text != null && !text.isEmpty()) {
+                setForeground(Color.BLACK);
+                isPlaceholderShowing = false;
+            }
+            // If setting empty text, show the placeholder
+            else if (placeholder != null && !placeholder.isEmpty()) {
+                showPlaceholder();
+            }
+        }
+    }
+    
+    /**
      * Sets the placeholder text for this text field.
      * 
      * @param placeholder The placeholder text to use
@@ -176,5 +197,15 @@ public class MuTextField extends JTextField {
         this.borderRadius = radius;
         setBorder(new RoundedBorder(radius, Color.gray, BORDER_THICKNESS));
         repaint();
+    }
+    
+    /**
+     * Override to prevent automatic focus acquisition.
+     * This ensures the text field won't get focus until explicitly clicked.
+     */
+    @Override
+    public boolean isFocusable() {
+        // We're still focusable when clicked, but won't get automatic focus
+        return super.isFocusable() && hasFocus();
     }
 }
