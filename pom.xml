@@ -57,10 +57,10 @@
         <version>2.8.2</version>
       </dependency>
 
-      <dependency>
-      <groupId>com.yourorg.uno</groupId>
-      <artifactId>mu-library</artifactId>
-      <version>1.0.0</version>
+    <dependency>
+      <groupId>org.example</groupId>      <!-- Match groupId from mu-library/pom.xml -->
+      <artifactId>mu-library</artifactId> <!-- Match artifactId from mu-library/pom.xml -->
+      <version>1.0-SNAPSHOT</version>   <!-- Match version from mu-library/pom.xml -->
     </dependency>
     </dependencies>
 

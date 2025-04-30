@@ -1,7 +1,5 @@
 import java.io.IOException;
 
-import javax.swing.SwingUtilities;
-
 import UI.MuMainFrame;
 
 public class MainApp {
