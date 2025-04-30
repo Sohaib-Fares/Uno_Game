@@ -147,19 +147,31 @@ public class MuGameSetupPanel extends JPanel {
 
         // Add player panels with spacing
         MuPlayerPanel player1 = new MuPlayerPanel(MuColors.MuRed, "Player 1 name");
-        playerSection.add(player1);
+        MuCheckBox player1BotCheck = new MuCheckBox("Bot");
+        player1BotCheck.setOpaque(false);
+        JPanel player1Row = createPlayerRowPanel(player1, player1BotCheck);
+        playerSection.add(player1Row);
         playerSection.add(MuBox.createVerticalStrut(15));
 
         MuPlayerPanel player2 = new MuPlayerPanel(MuColors.MuBlue, "Player 2 name");
-        playerSection.add(player2);
+        MuCheckBox player2BotCheck = new MuCheckBox("Bot");
+        player2BotCheck.setOpaque(false);
+        JPanel player2Row = createPlayerRowPanel(player2, player2BotCheck);
+        playerSection.add(player2Row);
         playerSection.add(MuBox.createVerticalStrut(15));
 
         MuPlayerPanel player3 = new MuPlayerPanel(MuColors.MuGreen, "Player 3 name");
-        playerSection.add(player3);
+        MuCheckBox player3BotCheck = new MuCheckBox("Bot");
+        player3BotCheck.setOpaque(false);
+        JPanel player3Row = createPlayerRowPanel(player3, player3BotCheck);
+        playerSection.add(player3Row);
         playerSection.add(MuBox.createVerticalStrut(15));
 
         MuPlayerPanel player4 = new MuPlayerPanel(MuColors.MuBlue, "Player 4 name");
-        playerSection.add(player4);
+        MuCheckBox player4BotCheck = new MuCheckBox("Bot");
+        player4BotCheck.setOpaque(false);
+        JPanel player4Row = createPlayerRowPanel(player4, player4BotCheck);
+        playerSection.add(player4Row);
         playerSection.add(MuBox.createVerticalStrut(15));
 
         // Create Add/Remove panel with BorderLayout for left/right alignment
@@ -208,5 +220,17 @@ public class MuGameSetupPanel extends JPanel {
         bottomPanel.add(startGamePanel);
 
         return bottomPanel;
+    }
+
+    private JPanel createPlayerRowPanel(MuPlayerPanel playerPanel, MuCheckBox checkBox) {
+        JPanel rowPanel = new JPanel(new BorderLayout(10, 0)); // BorderLayout with horizontal gap
+        rowPanel.setBackground(Color.WHITE); // Match background
+        rowPanel.setOpaque(true);
+        // Ensure the row takes the width but doesn't stretch vertically unnecessarily
+        rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, playerPanel.getPreferredSize().height));
+
+        rowPanel.add(playerPanel, BorderLayout.CENTER);
+        rowPanel.add(checkBox, BorderLayout.EAST);
+        return rowPanel;
     }
 }
