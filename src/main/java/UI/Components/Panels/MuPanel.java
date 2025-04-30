@@ -8,8 +8,23 @@ import UI.Components.Misc.MuSeparator;
 import java.awt.*;
 
 public class MuPanel extends JPanel {
+
+    public MuPanel(LayoutManager layout, boolean isDoubleBuffered) {
+        super.setLayout(layout);
+        super.setDoubleBuffered(isDoubleBuffered);
+        super.updateUI();
+    }
+
+    public MuPanel(LayoutManager layout) {
+        super(layout, true);
+    }
+
+    public MuPanel(boolean isDoubleBuffered) {
+        super(new FlowLayout(), isDoubleBuffered);
+    }
+
     public MuPanel() {
-        super();
+        super(true);
     }
 
     public static JPanel createInformationPanel(String title, String description) {

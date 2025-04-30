@@ -79,7 +79,9 @@ public class MuMainFrame extends MuFrame {
 
     // Method to switch panels
     public void switchToPanel(String panelName) {
+
         cardLayout.show(contentContainer, panelName);
+
     }
 
     // Optional: Method to get the content container if needed by child panels

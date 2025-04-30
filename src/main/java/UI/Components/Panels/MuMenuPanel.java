@@ -24,66 +24,32 @@ public class MuMenuPanel extends JPanel {
         setPreferredSize(new Dimension(550, 700)); // Keep preferred size
 
         // --- Top Panel (Logo) ---
-        JPanel topPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                int width = getWidth();
-                int height = getHeight();
+        MuHeaderPanel topPanel = new MuHeaderPanel();
+        Point2D relativeCenter = new Point2D.Float(0.5f, 0.5f); // Center point relative to size
 
-                g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-
-                Point2D center = new Point2D.Float(width / 2f, height / 2f);
-                float radius = 300f;
-                float[] dist = { 0.0f, 1.0f };
-                Color[] colors = {
-                        MuColors.MuRed.brighter(), // Center bright red
-                        MuColors.MuRed.darker() // Outer deep red
-                };
-                RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
-
-                g2d.setPaint(p);
-                g2d.fillRect(0, 0, width, height);
-            }
+        float radius = 300f;
+        float[] dist = { 0.0f, 1.0f };
+        Color[] colors = {
+                MuColors.MuRed.brighter(), // Center bright red
+                MuColors.MuRed.darker() // Outer deep red
         };
-        topPanel.setLayout(new BorderLayout());
+        topPanel.setRelativeRadialGradient(relativeCenter, radius, dist,
+                colors);
+
+        topPanel.setPreferredSize(new Dimension(250 + 50, 250 + 50)); // Example: 250x250 logo + 25 padding each side
+        topPanel.setMinimumSize(new Dimension(200 + 50, 200 + 50)); // Example: 250x250 logo + 25 padding each side
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         // Set preferred size based on desired logo size + padding
-        topPanel.setPreferredSize(new Dimension(250 + 50, 250 + 50)); // Example: 250x250 logo + 25 padding each side
-
-        ImageIcon originalIcon = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
-        MuLabel JUNO;
-
-        if (originalIcon.getIconWidth() == -1) {
-            System.err.println("Warning: Could not load image icon at src/main/java/UI/Assets/JUNO.png");
-            JUNO = new MuLabel("JUNO Logo Missing");
-            JUNO.setHorizontalAlignment(MuLabel.CENTER);
-            JUNO.setForeground(Color.WHITE);
-        } else {
-            int desiredWidth = 250;
-            int desiredHeight = 250;
-            Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight,
-                    Image.SCALE_SMOOTH);
-            ImageIcon scaledIcon = new ImageIcon(scaledImage);
-            JUNO = new MuLabel(scaledIcon);
-            JUNO.setHorizontalAlignment(MuLabel.CENTER);
-            JUNO.setVerticalAlignment(MuLabel.CENTER);
-        }
-        topPanel.add(JUNO, BorderLayout.CENTER);
+        topPanel.setContentIcon("src/main/java/UI/Assets/JUNO.png", 250, 250);
 
         // --- Middle Panel (Buttons) ---
         JPanel middlePanel = new JPanel();
         middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.Y_AXIS));
         middlePanel.setBackground(Color.WHITE);
         middlePanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 20, 20)); // Adjust padding as needed
+        middlePanel.setMinimumSize(new Dimension(260, 260));
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center buttons horizontally
-
+        MuVerticalListPanel buttonPanel = new MuVerticalListPanel();
         // Create Buttons
         MuFilledButton startButton = new MuFilledButton("Start Game", MuColors.MuRed, Color.WHITE, 20, 200, 50);
         MuFilledButton howToPlayButton = new MuFilledButton("How to Play", MuColors.MuYellow, Color.BLACK, 20, 200, 50);
@@ -103,10 +69,10 @@ public class MuMenuPanel extends JPanel {
 
         // Add Buttons to buttonPanel
         buttonPanel.add(startButton);
-        buttonPanel.add(MuBox.createVerticalStrut(20)); // Spacing
         buttonPanel.add(howToPlayButton);
-        buttonPanel.add(MuBox.createVerticalStrut(20)); // Spacing
         buttonPanel.add(exitButton);
+
+        buttonPanel.setMinimumSize(new Dimension(200, 200));
 
         middlePanel.add(buttonPanel);
         middlePanel.add(MuBox.createVerticalGlue()); // Pushes buttons up if extra space

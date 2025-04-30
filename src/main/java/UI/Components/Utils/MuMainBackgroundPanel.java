@@ -4,19 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.RadialGradientPaint;
 import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 public class MuMainBackgroundPanel extends JPanel {
 
     public MuMainBackgroundPanel() {
-        super.setBorder(new EmptyBorder(2, 3, 2, 3));
-        super.setLayout(new GridLayout(3, 3));
     }
 
     @Override
