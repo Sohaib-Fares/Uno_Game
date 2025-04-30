@@ -1,4 +1,4 @@
-package UI.Components.Panels.MuGamePlayPanels;
+package UI.MuGamePlayPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,8 +8,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import UI.MuMainFrame;
 import UI.Components.Buttons.MuOutlinedButton;
-import UI.Components.Frames.MuMainFrame;
 import UI.Components.Labels.MuLabel;
 import UI.Components.Misc.MuImageIcon;
 import UI.Components.Panels.MuPanel;

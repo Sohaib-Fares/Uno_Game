@@ -1,16 +1,17 @@
-package UI.Components.Panels;
+package UI;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 
 import UI.Components.Buttons.MuFilledButton;
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Containers.MuLayeredPane;
-import UI.Components.Frames.MuMainFrame;
 import UI.Components.Labels.MuLabel;
 import UI.Components.Misc.MuBox;
 import UI.Components.Misc.MuImageIcon;
+import UI.Components.Panels.MuPlayerPanel;
 import UI.Constatnts.MuColors;
 
 public class MuGameSetupPanel extends JPanel {

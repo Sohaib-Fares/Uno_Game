@@ -1,15 +1,15 @@
-package UI.Components.Panels;
+package UI;
 
 import UI.Constatnts.MuColors;
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Cards.MuNumberedCard;
 import UI.Components.Cards.MuWildCard;
 import UI.Components.Containers.MuScrollPane;
-import UI.Components.Frames.MuMainFrame;
 import UI.Components.Labels.MuLabel;
 import UI.Components.Misc.MuBox;
 import UI.Components.Misc.MuImageIcon;
 import UI.Components.Misc.MuSeparator;
+import UI.Components.Panels.MuPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;

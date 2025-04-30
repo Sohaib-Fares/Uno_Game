@@ -56,6 +56,12 @@
         <artifactId>gwt-dev</artifactId>
         <version>2.8.2</version>
       </dependency>
+
+      <dependency>
+      <groupId>com.yourorg.uno</groupId>
+      <artifactId>mu-library</artifactId>
+      <version>1.0.0</version>
+    </dependency>
     </dependencies>
 
 </project>

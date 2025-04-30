@@ -1,12 +1,13 @@
-package UI.Components.Panels;
+package UI;
 
 import javax.swing.*;
+
 import UI.Components.Buttons.MuFilledButton;
 import UI.Components.Dialogs.MuJOptionPane;
-import UI.Components.Frames.MuMainFrame;
 import UI.Components.Labels.MuCircleLabel;
-import UI.Components.Labels.MuLabel;
 import UI.Components.Misc.MuBox;
+import UI.Components.Panels.MuHeaderPanel;
+import UI.Components.Panels.MuVerticalListPanel;
 import UI.Constatnts.MuColors;
 import java.awt.*;
 import java.awt.event.ActionEvent; // Import ActionEvent

@@ -14,6 +14,5 @@ public class MuFrame extends JFrame {
         super.setLocationRelativeTo(null);
 
         super.setLocationByPlatform(false);
-        super.setVisible(true);
     }
 }

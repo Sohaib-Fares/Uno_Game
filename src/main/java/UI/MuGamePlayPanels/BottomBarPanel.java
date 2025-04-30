@@ -1,4 +1,4 @@
-package UI.Components.Panels.MuGamePlayPanels;
+package UI.MuGamePlayPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

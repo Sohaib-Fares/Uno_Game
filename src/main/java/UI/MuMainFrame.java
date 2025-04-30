@@ -1,15 +1,13 @@
-package UI.Components.Frames;
+package UI;
+
 
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
+import UI.Components.Frames.MuFrame;
 import UI.Components.Misc.MuImageIcon;
-import UI.Components.Panels.MuGameSetupPanel;
-import UI.Components.Panels.MuHowToPlayPanel;
-import UI.Components.Panels.MuMenuPanel;
-import UI.Components.Panels.MuGamePlayPanels.MuGamePlayPanel;
 import UI.Components.Utils.MuMainBackgroundPanel;
 
 public class MuMainFrame extends MuFrame {
