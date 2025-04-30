@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-import javax.swing.JLabel;
+import UI.Components.Labels.MuLabel;
 
 public class MuNumberedCard extends MuCard {
 
@@ -20,15 +20,15 @@ public class MuNumberedCard extends MuCard {
             fontColor = Color.WHITE;
         }
 
-        JLabel centerLabel = new JLabel(label);
+        MuLabel centerLabel = new MuLabel(label);
         centerLabel.setFont(new Font("Lato", Font.BOLD, 40));
         centerLabel.setForeground(fontColor);
 
-        JLabel topLeftLabel = new JLabel(label);
+        MuLabel topLeftLabel = new MuLabel(label);
         topLeftLabel.setFont(new Font("Lato", Font.BOLD, 14));
         topLeftLabel.setForeground(fontColor);
 
-        JLabel bottomRightLabel = new JLabel(label);
+        MuLabel bottomRightLabel = new MuLabel(label);
         bottomRightLabel.setFont(new Font("Lato", Font.BOLD, 14));
         bottomRightLabel.setForeground(fontColor);
 

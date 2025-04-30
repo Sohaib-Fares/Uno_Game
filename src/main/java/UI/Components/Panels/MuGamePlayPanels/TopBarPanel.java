@@ -1,4 +1,4 @@
-package UI.Components.Panels;
+package UI.Components.Panels.MuGamePlayPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,12 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Frames.MuMainFrame;
 import UI.Components.Labels.MuLabel;
+import UI.Components.Misc.MuImageIcon;
+import UI.Components.Panels.MuPanel;
 
 public class TopBarPanel extends JPanel {
         public TopBarPanel(MuMainFrame mainFrame) {
@@ -40,11 +41,11 @@ public class TopBarPanel extends JPanel {
 
                 // Center icon
                 MuLabel imagelabel;
-                ImageIcon imageicon = new ImageIcon(
-                                "C:/Users/omen2/OneDrive/Desktop/Uno_Game/src/main/java/UI/Assets/JUNO.png");
+                MuImageIcon imageicon = new MuImageIcon(
+                                "src/main/java/UI/Assets/JUNO.png");
                 Image scaledImage = imageicon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
                 imagelabel = new MuLabel();
-                imagelabel.setIcon(new ImageIcon(scaledImage));
+                imagelabel.setIcon(new MuImageIcon(scaledImage));
                 imagelabel.setOpaque(false);
 
                 MuPanel imagePanel = new MuPanel();

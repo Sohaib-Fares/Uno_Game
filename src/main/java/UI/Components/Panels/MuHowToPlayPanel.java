@@ -1,10 +1,15 @@
-package UI.Components.Frames;
+package UI.Components.Panels;
 
-import UI.Components.Panels.MuPanel; // Assuming this might still be used indirectly or was part of original structure
 import UI.Constatnts.MuColors;
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Cards.MuNumberedCard;
 import UI.Components.Cards.MuWildCard;
+import UI.Components.Containers.MuScrollPane;
+import UI.Components.Frames.MuMainFrame;
+import UI.Components.Labels.MuLabel;
+import UI.Components.Misc.MuBox;
+import UI.Components.Misc.MuImageIcon;
+import UI.Components.Misc.MuSeparator;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -21,10 +26,10 @@ public class MuHowToPlayPanel extends JPanel {
         private static final Font FONT_H2P_TITLE = new Font("Lato", Font.BOLD, 25);
 
         // modern Scroll pane
-        private JScrollPane createModernScrollPane(Component view) {
-                JScrollPane scrollPane = new JScrollPane(view);
-                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        private MuScrollPane createModernScrollPane(Component view) {
+                MuScrollPane scrollPane = new MuScrollPane(view);
+                scrollPane.setVerticalScrollBarPolicy(MuScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setHorizontalScrollBarPolicy(MuScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
                 scrollPane.getVerticalScrollBar().setUnitIncrement(16);
                 scrollPane.getHorizontalScrollBar().setUnitIncrement(16);
                 scrollPane.getViewport().setOpaque(true);
@@ -132,10 +137,10 @@ public class MuHowToPlayPanel extends JPanel {
 
                 headPanel.add(backButton, headGbc);
 
-                JLabel JUNO;
-                ImageIcon originalIcon = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
+                MuLabel JUNO;
+                MuImageIcon originalIcon = new MuImageIcon("src/main/java/UI/Assets/JUNO.png");
                 Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                JUNO = new JLabel(new ImageIcon(scaledImage));
+                JUNO = new MuLabel(new MuImageIcon(scaledImage));
 
                 headGbc.gridx = 1;
                 headGbc.gridy = 0;
@@ -150,7 +155,7 @@ public class MuHowToPlayPanel extends JPanel {
                 headGbc.gridy = 0;
                 headGbc.weightx = 0; // Don't let the spacer stretch
                 headGbc.anchor = GridBagConstraints.WEST;
-                headPanel.add(Box.createHorizontalStrut(backButton.getPreferredSize().width), headGbc);
+                headPanel.add(MuBox.createHorizontalStrut(backButton.getPreferredSize().width), headGbc);
 
                 // panel contains instructions
                 JPanel centerContentWrapper = new JPanel();
@@ -167,7 +172,7 @@ public class MuHowToPlayPanel extends JPanel {
                                 new Dimension(Integer.MAX_VALUE, labelContainer.getPreferredSize().height)); // Prevent
                                                                                                              // stretching
 
-                JLabel titleLabel = new JLabel("How to Play");
+                MuLabel titleLabel = new MuLabel("How to Play");
                 titleLabel.setFont(FONT_H2P_TITLE);
                 titleLabel.setForeground(Color.RED);
                 titleLabel.setBorder(new EmptyBorder(0, 0, 15, 0));
@@ -176,12 +181,12 @@ public class MuHowToPlayPanel extends JPanel {
                 // create objective panel
                 JPanel objectivePanel = MuPanel.createInformationPanel("Objective",
                                 "Be the first player to get rid of all your cards! When you have only one card left, don't forget to shout \"UNO!\"");
-                objectivePanel.add(Box.createRigidArea(new Dimension(0, 8)));
+                objectivePanel.add(MuBox.createRigidArea(new Dimension(0, 8)));
 
                 // create setup panel
                 JPanel setupPanel = MuPanel.createInformationPanel("Setup",
                                 "Each player is start with 7 cards. The remaining cards from the draw pile. The top card is turned over to start the discard pile");
-                setupPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+                setupPanel.add(MuBox.createRigidArea(new Dimension(0, 8)));
 
                 // create gameplay panel
                 JPanel gameplayPanel = MuPanel.createInformationPanel("Gameplay",
@@ -193,12 +198,12 @@ public class MuHowToPlayPanel extends JPanel {
                                                 "If you can't play, draw from the pile. If playable, you may use it immediately."
                                                 +
                                                 "</div>");
-                gameplayPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+                gameplayPanel.add(MuBox.createRigidArea(new Dimension(0, 8)));
 
                 // create winning panel
                 JPanel winningPanel = MuPanel.createInformationPanel("Winning",
                                 "The first player to get rid of all their cards wins the round! If you forget to say \"UNO\" when you have one card left to play and another player ctches you, you must draw 2 cards as a penalty.");
-                winningPanel.add(Box.createRigidArea(new Dimension(0, 8)));
+                winningPanel.add(MuBox.createRigidArea(new Dimension(0, 8)));
 
                 objectivePanel.setBorder(softBorder);
                 setupPanel.setBorder(softBorder);
@@ -220,13 +225,13 @@ public class MuHowToPlayPanel extends JPanel {
                 centerContentWrapper.add(headPanel);
                 centerContentWrapper.add(labelContainer);
                 centerContentWrapper.add(objectivePanel);
-                centerContentWrapper.add(Box.createRigidArea(new Dimension(0, 15)));
+                centerContentWrapper.add(MuBox.createRigidArea(new Dimension(0, 15)));
                 centerContentWrapper.add(setupPanel);
-                centerContentWrapper.add(Box.createRigidArea(new Dimension(0, 15)));
+                centerContentWrapper.add(MuBox.createRigidArea(new Dimension(0, 15)));
                 centerContentWrapper.add(gameplayPanel);
-                centerContentWrapper.add(Box.createRigidArea(new Dimension(0, 15)));
+                centerContentWrapper.add(MuBox.createRigidArea(new Dimension(0, 15)));
                 centerContentWrapper.add(cardTypesPanel);
-                centerContentWrapper.add(Box.createRigidArea(new Dimension(0, 15)));
+                centerContentWrapper.add(MuBox.createRigidArea(new Dimension(0, 15)));
                 centerContentWrapper.add(winningPanel);
 
                 // Set alignmentX for all components to ensure proper alignment in BoxLayout
@@ -252,7 +257,7 @@ public class MuHowToPlayPanel extends JPanel {
                 borderedContent.add(centerContentWrapper);
 
                 // Modify scrollPane settings to properly handle resizing
-                JScrollPane scrollPane = createModernScrollPane(borderedContent);
+                MuScrollPane scrollPane = createModernScrollPane(borderedContent);
                 scrollPane.setPreferredSize(new Dimension(800, 600)); // Smaller preferred size
                 scrollPane.setMinimumSize(new Dimension(600, 400)); // Reasonable minimum size
 
@@ -295,7 +300,7 @@ public class MuHowToPlayPanel extends JPanel {
                 titleArea.setOpaque(true); // Keep this transparent so parent background shows
                 titleArea.setBackground(new Color(254, 250, 234));
 
-                JLabel cardTypesTitleLabel = new JLabel("Card Types");
+                MuLabel cardTypesTitleLabel = new MuLabel("Card Types");
                 cardTypesTitleLabel.setFont(new Font("Arial", Font.BOLD, 16));
                 cardTypesTitleLabel.setForeground(new Color(145, 63, 12)); // light text
                 cardTypesTitleLabel.setOpaque(false);
@@ -304,7 +309,7 @@ public class MuHowToPlayPanel extends JPanel {
                 titleArea.add(cardTypesTitleLabel);
 
                 // Separator below title
-                JSeparator separator = new JSeparator();
+                MuSeparator separator = new MuSeparator();
                 separator.setForeground(new Color(200, 200, 200));
                 // manager handle size
 
@@ -409,12 +414,12 @@ public class MuHowToPlayPanel extends JPanel {
                 cardContainer.setMinimumSize(new Dimension(100, 150));
                 cardContainer.setMaximumSize(new Dimension(100, 150));
 
-                JLabel descLabel = new JLabel(
+                MuLabel descLabel = new MuLabel(
                                 "<html><body style='width: 180px; text-align: left;'>" + description
                                                 + "</body></html>");
                 descLabel.setFont(new Font("Lato", Font.BOLD, 12));
                 descLabel.setForeground(Color.BLACK);
-                descLabel.setVerticalAlignment(JLabel.TOP); // Align text to the top
+                descLabel.setVerticalAlignment(MuLabel.TOP); // Align text to the top
 
                 // Add card container instead of card directly
                 gbcRow.gridx = 0;

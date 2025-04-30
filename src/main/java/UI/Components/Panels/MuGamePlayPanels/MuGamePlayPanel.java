@@ -1,12 +1,10 @@
-package UI.Components.Frames;
+package UI.Components.Panels.MuGamePlayPanels;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import UI.Components.Panels.BottomBarPanel;
-import UI.Components.Panels.CenterGamePanel;
-import UI.Components.Panels.TopBarPanel;
+import UI.Components.Frames.MuMainFrame;
 
 public class MuGamePlayPanel extends JPanel {
     public MuGamePlayPanel(MuMainFrame mainFrame) {

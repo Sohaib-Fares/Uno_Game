@@ -1,15 +1,18 @@
 package UI.Components.Frames;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import UI.Components.Misc.MuImageIcon;
+import UI.Components.Panels.MuGameSetupPanel;
+import UI.Components.Panels.MuHowToPlayPanel;
+import UI.Components.Panels.MuMenuPanel;
+import UI.Components.Panels.MuGamePlayPanels.MuGamePlayPanel;
 import UI.Components.Utils.MuMainBackgroundPanel;
 
-public class MuMainFrame extends JFrame {
+public class MuMainFrame extends MuFrame {
     private CardLayout cardLayout;
     private JPanel contentContainer; // Panel to hold the switchable views
     private MuMainBackgroundPanel backgroundPanel;
@@ -23,13 +26,8 @@ public class MuMainFrame extends JFrame {
     // Add more panel names as needed
     public MuMainFrame() {
         super("JUno"); // Set a title
-        super.setSize(900, 900);
-        super.setPreferredSize(new Dimension(900, 900));
-        super.setMinimumSize(new Dimension(900, 700));
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.setLocationRelativeTo(null);
 
-        ImageIcon image = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
+        MuImageIcon image = new MuImageIcon("src/main/java/UI/Assets/JUNO.png");
         super.setIconImage(image.getImage());
 
         backgroundPanel = new MuMainBackgroundPanel(); // Keep the background

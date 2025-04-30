@@ -1,6 +1,10 @@
 package UI.Components.Panels;
 
 import javax.swing.*;
+
+import UI.Components.Labels.MuLabel;
+import UI.Components.Misc.MuSeparator;
+
 import java.awt.*;
 
 public class MuPanel extends JPanel {
@@ -17,19 +21,19 @@ public class MuPanel extends JPanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // Create and style the title label
-        JLabel titleLabel = new JLabel(title);
+        MuLabel titleLabel = new MuLabel(title);
         titleLabel.setFont(new Font("Lato", Font.BOLD, 16));
         titleLabel.setForeground(new Color(145, 63, 12)); // light text
         titleLabel.setOpaque(false);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Create the separator line
-        JSeparator separator = new JSeparator();
+        MuSeparator separator = new MuSeparator();
         separator.setForeground(new Color(200, 200, 200)); // Light gray line
         separator.setMaximumSize(new Dimension(Short.MAX_VALUE, 2)); // Makes it a thin line
 
         // Create and style the description label
-        JLabel descriptionLabel = new JLabel("<html>" + description + "</html>");
+        MuLabel descriptionLabel = new MuLabel("<html>" + description + "</html>");
         descriptionLabel.setFont(new Font("Lato", Font.BOLD, 12));
         descriptionLabel.setBackground(Color.WHITE);
         descriptionLabel.setForeground(Color.BLACK);

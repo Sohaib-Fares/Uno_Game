@@ -1,4 +1,4 @@
-package UI.Components.Frames;
+package UI.Components.Panels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,11 @@ import java.awt.geom.Point2D;
 
 import UI.Components.Buttons.MuFilledButton;
 import UI.Components.Buttons.MuOutlinedButton;
-import UI.Components.Panels.MuPlayerPanel;
+import UI.Components.Containers.MuLayeredPane;
+import UI.Components.Frames.MuMainFrame;
+import UI.Components.Labels.MuLabel;
+import UI.Components.Misc.MuBox;
+import UI.Components.Misc.MuImageIcon;
 import UI.Constatnts.MuColors;
 
 public class MuGameSetupPanel extends JPanel {
@@ -84,7 +88,7 @@ public class MuGameSetupPanel extends JPanel {
         topPanel.setPreferredSize(new Dimension(500, 200));
 
         // Use a layered approach - one layer for the logo, one for the button
-        JLayeredPane layeredPane = new JLayeredPane();
+        MuLayeredPane layeredPane = new MuLayeredPane();
         layeredPane.setPreferredSize(new Dimension(500, 200));
 
         // Create back button
@@ -94,20 +98,20 @@ public class MuGameSetupPanel extends JPanel {
         backButton.addActionListener(e -> mainFrame.switchToPanel(MuMainFrame.MENU_PANEL));
 
         // Create and center the JUNO logo
-        ImageIcon originalIcon = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
-        JLabel logoLabel;
+        MuImageIcon originalIcon = new MuImageIcon("src/main/java/UI/Assets/JUNO.png");
+        MuLabel logoLabel;
 
         if (originalIcon.getIconWidth() == -1) {
             System.err.println("Warning: Could not load image icon at src/main/java/UI/Assets/JUNO.png");
-            logoLabel = new JLabel("JUNO Logo Missing");
+            logoLabel = new MuLabel("JUNO Logo Missing");
             logoLabel.setForeground(Color.WHITE);
         } else {
             int desiredWidth = 175;
             int desiredHeight = 175;
             Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight,
                     Image.SCALE_SMOOTH);
-            ImageIcon scaledIcon = new ImageIcon(scaledImage);
-            logoLabel = new JLabel(scaledIcon);
+            MuImageIcon scaledIcon = new MuImageIcon(scaledImage);
+            logoLabel = new MuLabel(scaledIcon);
         }
 
         // Center logo in the panel
@@ -143,19 +147,19 @@ public class MuGameSetupPanel extends JPanel {
         // Add player panels with spacing
         MuPlayerPanel player1 = new MuPlayerPanel(MuColors.MuRed, "Player 1 name");
         playerSection.add(player1);
-        playerSection.add(Box.createVerticalStrut(15));
+        playerSection.add(MuBox.createVerticalStrut(15));
 
         MuPlayerPanel player2 = new MuPlayerPanel(MuColors.MuBlue, "Player 2 name");
         playerSection.add(player2);
-        playerSection.add(Box.createVerticalStrut(15));
+        playerSection.add(MuBox.createVerticalStrut(15));
 
         MuPlayerPanel player3 = new MuPlayerPanel(MuColors.MuGreen, "Player 3 name");
         playerSection.add(player3);
-        playerSection.add(Box.createVerticalStrut(15));
+        playerSection.add(MuBox.createVerticalStrut(15));
 
         MuPlayerPanel player4 = new MuPlayerPanel(MuColors.MuBlue, "Player 4 name");
         playerSection.add(player4);
-        playerSection.add(Box.createVerticalStrut(15));
+        playerSection.add(MuBox.createVerticalStrut(15));
 
         // Create Add/Remove panel with BorderLayout for left/right alignment
         JPanel addRemovePanel = new JPanel();

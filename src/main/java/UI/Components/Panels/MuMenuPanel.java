@@ -1,8 +1,12 @@
-package UI.Components.Frames;
+package UI.Components.Panels;
 
 import javax.swing.*;
 import UI.Components.Buttons.MuFilledButton;
+import UI.Components.Dialogs.MuJOptionPane;
+import UI.Components.Frames.MuMainFrame;
 import UI.Components.Labels.MuCircleLabel;
+import UI.Components.Labels.MuLabel;
+import UI.Components.Misc.MuBox;
 import UI.Constatnts.MuColors;
 import java.awt.*;
 import java.awt.event.ActionEvent; // Import ActionEvent
@@ -49,12 +53,12 @@ public class MuMenuPanel extends JPanel {
         topPanel.setPreferredSize(new Dimension(250 + 50, 250 + 50)); // Example: 250x250 logo + 25 padding each side
 
         ImageIcon originalIcon = new ImageIcon("src/main/java/UI/Assets/JUNO.png");
-        JLabel JUNO;
+        MuLabel JUNO;
 
         if (originalIcon.getIconWidth() == -1) {
             System.err.println("Warning: Could not load image icon at src/main/java/UI/Assets/JUNO.png");
-            JUNO = new JLabel("JUNO Logo Missing");
-            JUNO.setHorizontalAlignment(JLabel.CENTER);
+            JUNO = new MuLabel("JUNO Logo Missing");
+            JUNO.setHorizontalAlignment(MuLabel.CENTER);
             JUNO.setForeground(Color.WHITE);
         } else {
             int desiredWidth = 250;
@@ -62,9 +66,9 @@ public class MuMenuPanel extends JPanel {
             Image scaledImage = originalIcon.getImage().getScaledInstance(desiredWidth, desiredHeight,
                     Image.SCALE_SMOOTH);
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
-            JUNO = new JLabel(scaledIcon);
-            JUNO.setHorizontalAlignment(JLabel.CENTER);
-            JUNO.setVerticalAlignment(JLabel.CENTER);
+            JUNO = new MuLabel(scaledIcon);
+            JUNO.setHorizontalAlignment(MuLabel.CENTER);
+            JUNO.setVerticalAlignment(MuLabel.CENTER);
         }
         topPanel.add(JUNO, BorderLayout.CENTER);
 
@@ -99,13 +103,13 @@ public class MuMenuPanel extends JPanel {
 
         // Add Buttons to buttonPanel
         buttonPanel.add(startButton);
-        buttonPanel.add(Box.createVerticalStrut(20)); // Spacing
+        buttonPanel.add(MuBox.createVerticalStrut(20)); // Spacing
         buttonPanel.add(howToPlayButton);
-        buttonPanel.add(Box.createVerticalStrut(20)); // Spacing
+        buttonPanel.add(MuBox.createVerticalStrut(20)); // Spacing
         buttonPanel.add(exitButton);
 
         middlePanel.add(buttonPanel);
-        middlePanel.add(Box.createVerticalGlue()); // Pushes buttons up if extra space
+        middlePanel.add(MuBox.createVerticalGlue()); // Pushes buttons up if extra space
 
         // --- Bottom Panel (Circles) ---
         JPanel circlePanel = new JPanel();
@@ -154,11 +158,11 @@ public class MuMenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Ask for confirmation before exiting
-                int confirmed = JOptionPane.showConfirmDialog(mainFrame, "Are you sure you want to exit?",
+                int confirmed = MuJOptionPane.showConfirmDialog(mainFrame, "Are you sure you want to exit?",
                         "Exit Confirmation",
                         JOptionPane.YES_NO_OPTION);
 
-                if (confirmed == JOptionPane.YES_OPTION) {
+                if (confirmed == MuJOptionPane.YES_OPTION) {
                     mainFrame.dispose(); // Close the window
                     System.exit(0); // Terminate the application
                 }

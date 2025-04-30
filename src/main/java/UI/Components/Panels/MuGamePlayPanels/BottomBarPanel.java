@@ -1,4 +1,4 @@
-package UI.Components.Panels;
+package UI.Components.Panels.MuGamePlayPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +14,7 @@ import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Cards.MuNumberedCard;
 import UI.Components.Labels.MuCircleLabel;
 import UI.Components.Labels.MuLabel;
+import UI.Components.Panels.MuPanel;
 
 public class BottomBarPanel extends JPanel {
     public BottomBarPanel() {

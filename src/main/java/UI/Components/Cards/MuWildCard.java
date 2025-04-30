@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import javax.swing.JLabel;
+import UI.Components.Labels.MuLabel;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -21,15 +21,15 @@ public class MuWildCard extends MuCard {
 
         // Add corner labels like MuNumberedCard
         Color fontColor = Color.WHITE;
-        JLabel topLeftLabel = new JLabel(this.label);
+        MuLabel topLeftLabel = new MuLabel(this.label);
         topLeftLabel.setFont(new Font("Lato", Font.BOLD, 14));
         topLeftLabel.setForeground(fontColor);
-        JLabel bottomRightLabel = new JLabel(this.label);
+        MuLabel bottomRightLabel = new MuLabel(this.label);
         bottomRightLabel.setFont(new Font("Lato", Font.BOLD, 14));
         bottomRightLabel.setForeground(fontColor);
 
         // Add center label
-        JLabel centerLabel = new JLabel(this.label);
+        MuLabel centerLabel = new MuLabel(this.label);
         centerLabel.setFont(new Font("Lato", Font.BOLD, 40)); // Use a larger font for the center
         centerLabel.setForeground(fontColor);
 
