@@ -199,13 +199,5 @@ public class MuTextField extends JTextField {
         repaint();
     }
     
-    /**
-     * Override to prevent automatic focus acquisition.
-     * This ensures the text field won't get focus until explicitly clicked.
-     */
-    @Override
-    public boolean isFocusable() {
-        // We're still focusable when clicked, but won't get automatic focus
-        return super.isFocusable() && hasFocus();
-    }
+
 }

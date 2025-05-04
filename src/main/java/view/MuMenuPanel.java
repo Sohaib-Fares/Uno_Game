@@ -18,7 +18,6 @@ import java.awt.geom.Point2D;
 
 public class MuMenuPanel extends JPanel {
 
-
     public MuMenuPanel(NavController navController) { // Accept MuMainFrame in constructor
 
         setLayout(new BorderLayout());

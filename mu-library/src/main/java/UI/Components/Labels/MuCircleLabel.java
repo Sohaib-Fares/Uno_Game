@@ -48,7 +48,7 @@ public class MuCircleLabel extends JPanel {
     private void loadPersonIcon() {
         try {
             personIcon = new MuImageIcon(
-                    "src/main/java/UI/Assets/png/person_24dp_000000_FILL0_wght400_GRAD0_opsz24.png");
+                    "src/main/resources/assets/png/person_24dp_000000_FILL0_wght400_GRAD0_opsz24.png");
             // Scale the icon to fit inside the circle (about 60% of circle size)
             int iconSize = (int) (size * 0.6);
             Image scaledImage = personIcon.getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH);

@@ -65,24 +65,18 @@ public class MuHeaderPanel extends MuGradientPanel { // Inherits gradient backgr
      * @param height       Desired height for the scaled image.
      */
     public void setContentIcon(String resourcePath, int width, int height) {
-        URL iconURL = getClass().getResource(resourcePath); // Use getResource
-        if (iconURL != null) {
-            MuImageIcon originalIcon = new MuImageIcon(iconURL); // Load from URL
-            if (originalIcon.getIconWidth() != -1) { // Check if loaded successfully
-                Image scaledImage = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-                contentLabel.setIcon(new MuImageIcon(scaledImage));
-                contentLabel.setText(null); // Clear any text
-            } else {
-                // This case might not be reached if getResource returns null, but good practice
-                contentLabel.setIcon(null);
-                contentLabel.setText("Icon Load Error");
-                System.err.println("Warning: ImageIcon could not process the resource at " + resourcePath);
-            }
+        MuImageIcon originalIcon = new MuImageIcon(resourcePath); // Load from URL
+        if (originalIcon.getIconWidth() != -1) { // Check if loaded successfully
+            Image scaledImage = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            contentLabel.setIcon(new MuImageIcon(scaledImage));
+            contentLabel.setText(null); // Clear any text
         } else {
+            // This case might not be reached if getResource returns null, but good practice
             contentLabel.setIcon(null);
-            contentLabel.setText("Icon Not Found"); // Placeholder text
-            System.err.println("Warning: Could not find image resource at " + resourcePath);
+            contentLabel.setText("Icon Load Error");
+            System.err.println("Warning: ImageIcon could not process the resource at " + resourcePath);
         }
+
         // Preferred size might change, trigger layout update
         revalidate();
         repaint();

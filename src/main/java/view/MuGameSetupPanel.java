@@ -167,6 +167,7 @@ public class MuGameSetupPanel extends JPanel {
         MuPlayerPanel player1 = new MuPlayerPanel(MuColors.MuRed, "Player 1 name");
         MuCheckBox player1BotCheck = new MuCheckBox("Bot");
         player1BotCheck.setOpaque(false);
+        
         JPanel player1Row = createPlayerRowPanel(player1, player1BotCheck);
         playerRows.add(player1Row); // Add to list
 
