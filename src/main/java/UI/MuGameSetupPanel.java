@@ -4,6 +4,10 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import UI.Components.Buttons.MuFilledButton;
 import UI.Components.Buttons.MuOutlinedButton;
@@ -17,6 +21,13 @@ import UI.Constatnts.MuColors;
 public class MuGameSetupPanel extends JPanel {
 
     private JPanel menuPanel;
+    private List<JPanel> playerRows; // Store player row panels (player panel + checkbox)
+    private JPanel playerSection; // Panel containing the player rows
+    private MuFilledButton addButton;
+    private MuFilledButton removeButton;
+    private int currentPlayerCount = 2; // Start with 2 players
+    private final int MIN_PLAYERS = 2;
+    private final int MAX_PLAYERS = 4;
 
     public MuGameSetupPanel(MuMainFrame mainFrame) {
         // Setup frame properties
@@ -60,6 +71,9 @@ public class MuGameSetupPanel extends JPanel {
         // Add panels to the main panel
         menuPanel.add(topPanel);
         menuPanel.add(bottomPanel);
+
+        // Initial update for button states based on starting player count
+        updateButtonStates();
     }
 
     private JPanel createTopPanel(MuMainFrame mainFrame) {
@@ -137,42 +151,45 @@ public class MuGameSetupPanel extends JPanel {
         bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
+        // Initialize playerRows list
+        playerRows = new ArrayList<>();
+
         // Create player section panel with BoxLayout Y_AXIS
-        JPanel playerSection = new JPanel();
+        // Store reference to playerSection
+        playerSection = new JPanel();
         playerSection.setLayout(new BoxLayout(playerSection, BoxLayout.Y_AXIS));
         playerSection.setBackground(Color.WHITE);
         playerSection.setMinimumSize(new Dimension(400, 550));
         playerSection.setBorder(BorderFactory.createEmptyBorder(15, 30, 5, 30));
         playerSection.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Add player panels with spacing
+        // --- Create all player rows and add to list ---
         MuPlayerPanel player1 = new MuPlayerPanel(MuColors.MuRed, "Player 1 name");
         MuCheckBox player1BotCheck = new MuCheckBox("Bot");
         player1BotCheck.setOpaque(false);
         JPanel player1Row = createPlayerRowPanel(player1, player1BotCheck);
-        playerSection.add(player1Row);
-        playerSection.add(MuBox.createVerticalStrut(15));
+        playerRows.add(player1Row); // Add to list
 
         MuPlayerPanel player2 = new MuPlayerPanel(MuColors.MuBlue, "Player 2 name");
         MuCheckBox player2BotCheck = new MuCheckBox("Bot");
         player2BotCheck.setOpaque(false);
         JPanel player2Row = createPlayerRowPanel(player2, player2BotCheck);
-        playerSection.add(player2Row);
-        playerSection.add(MuBox.createVerticalStrut(15));
+        playerRows.add(player2Row); // Add to list
 
         MuPlayerPanel player3 = new MuPlayerPanel(MuColors.MuGreen, "Player 3 name");
         MuCheckBox player3BotCheck = new MuCheckBox("Bot");
         player3BotCheck.setOpaque(false);
         JPanel player3Row = createPlayerRowPanel(player3, player3BotCheck);
-        playerSection.add(player3Row);
-        playerSection.add(MuBox.createVerticalStrut(15));
+        playerRows.add(player3Row); // Add to list
 
-        MuPlayerPanel player4 = new MuPlayerPanel(MuColors.MuBlue, "Player 4 name");
+        MuPlayerPanel player4 = new MuPlayerPanel(MuColors.MuYellow, "Player 4 name"); // Changed color for uniqueness
         MuCheckBox player4BotCheck = new MuCheckBox("Bot");
         player4BotCheck.setOpaque(false);
         JPanel player4Row = createPlayerRowPanel(player4, player4BotCheck);
-        playerSection.add(player4Row);
-        playerSection.add(MuBox.createVerticalStrut(15));
+        playerRows.add(player4Row); // Add to list
+
+        // --- Update player section view initially ---
+        updatePlayerSectionView(); // Add initial players to the view
 
         // Create Add/Remove panel with BorderLayout for left/right alignment
         JPanel addRemovePanel = new JPanel();
@@ -182,11 +199,13 @@ public class MuGameSetupPanel extends JPanel {
         addRemovePanel.setPreferredSize(new Dimension(600, 60));
         addRemovePanel.setBackground(Color.WHITE);
 
-        // Create left button
-        MuFilledButton addButton = new MuFilledButton("+  Add Player", MuColors.MuGreen, Color.WHITE, 16, 140, 45);
+        // Create left button - Store reference
+        addButton = new MuFilledButton("+  Add Player", MuColors.MuGreen, Color.WHITE, 16, 140, 45);
+        addButton.addActionListener(e -> addPlayer()); // Add listener
 
-        // Create right button
-        MuFilledButton removeButton = new MuFilledButton("-  Remove", MuColors.MuRed, Color.WHITE, 16, 140, 45);
+        // Create right button - Store reference
+        removeButton = new MuFilledButton("-  Remove", MuColors.MuRed, Color.WHITE, 16, 140, 45);
+        removeButton.addActionListener(e -> removePlayer()); // Add listener
 
         // Create left and right panels to hold buttons
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 20, 7));
@@ -220,6 +239,54 @@ public class MuGameSetupPanel extends JPanel {
         bottomPanel.add(startGamePanel);
 
         return bottomPanel;
+    }
+
+    // Method to update the visible player rows in the playerSection
+    private void updatePlayerSectionView() {
+        playerSection.removeAll(); // Clear current rows
+        for (int i = 0; i < currentPlayerCount; i++) {
+            playerSection.add(playerRows.get(i));
+            // Add spacing only if it's not the last player row being added in this update
+            if (i < currentPlayerCount - 1 || currentPlayerCount < MAX_PLAYERS) {
+                playerSection.add(MuBox.createVerticalStrut(15));
+            }
+        }
+        playerSection.revalidate();
+        playerSection.repaint();
+    }
+
+    // Method to handle adding a player
+    private void addPlayer() {
+        if (currentPlayerCount < MAX_PLAYERS) {
+            currentPlayerCount++;
+            updatePlayerSectionView();
+            updateButtonStates();
+        }
+    }
+
+    // Method to handle removing a player
+    private void removePlayer() {
+        if (currentPlayerCount > MIN_PLAYERS) {
+            currentPlayerCount--;
+            updatePlayerSectionView();
+            updateButtonStates();
+        }
+    }
+
+    // Method to update the enabled state and appearance of add/remove buttons
+    private void updateButtonStates() {
+        boolean canAdd = currentPlayerCount < MAX_PLAYERS;
+        boolean canRemove = currentPlayerCount > MIN_PLAYERS;
+
+        addButton.setEnabled(canAdd);
+        removeButton.setEnabled(canRemove);
+
+        // Change appearance when disabled
+        addButton.setBackground(canAdd ? MuColors.MuGreen : Color.LIGHT_GRAY);
+        addButton.setForeground(canAdd ? Color.WHITE : Color.DARK_GRAY);
+
+        removeButton.setBackground(canRemove ? MuColors.MuRed : Color.LIGHT_GRAY);
+        removeButton.setForeground(canRemove ? Color.WHITE : Color.DARK_GRAY);
     }
 
     private JPanel createPlayerRowPanel(MuPlayerPanel playerPanel, MuCheckBox checkBox) {
