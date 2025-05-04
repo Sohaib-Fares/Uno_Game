@@ -77,6 +77,16 @@ public class Deck {
         return cards.remove(0);
     }
     
+    /**
+     * Returns a card to the deck (adds it back to the deck)
+     * @param card The card to return to the deck
+     */
+    public void returnCardToDeck(AbstractCard card) {
+        if (card != null) {
+            cards.add(card);
+        }
+    }
+    
     // TODO: Used for tests only, MUST-REMOVE in the end
     @Override
     public String toString() {

@@ -17,29 +17,36 @@ import UI.Components.Misc.MuImageIcon;
 import UI.Components.Panels.MuPlayerPanel;
 import UI.Constatnts.MuColors;
 import controllers.NavController;
+import model.PlayerModel.PlayerConfig;
 
 public class MuGameSetupPanel extends JPanel {
 
+    private static class PlayerRowComponents {
+        final MuPlayerPanel playerPanel;
+        final MuCheckBox botCheckBox;
+        final JPanel rowPanel;
+
+        PlayerRowComponents(MuPlayerPanel playerPanel, MuCheckBox botCheckBox, JPanel rowPanel) {
+            this.playerPanel = playerPanel;
+            this.botCheckBox = botCheckBox;
+            this.rowPanel = rowPanel;
+        }
+    }
+
     private JPanel menuPanel;
-    private List<JPanel> playerRows; // Store player row panels (player panel + checkbox)
-    private JPanel playerSection; // Panel containing the player rows
+    private List<PlayerRowComponents> playerRowComponentsList;
+    private JPanel playerSection;
     private MuFilledButton addButton;
     private MuFilledButton removeButton;
-    private int currentPlayerCount = 2; // Start with 2 players
+    private int currentPlayerCount = 2;
     private final int MIN_PLAYERS = 2;
     private final int MAX_PLAYERS = 4;
 
     public MuGameSetupPanel(NavController navController) {
-        // Setup frame properties
         super.setSize(900, 900);
-        // Create background panel with radial gradient
-
         setLayout(new GridBagLayout());
-
-        // Create the main menu panel
         createMenuPanel(navController);
 
-        // Add the menu panel to the background using GridBagLayout for centering
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -51,33 +58,25 @@ public class MuGameSetupPanel extends JPanel {
     }
 
     private void createMenuPanel(NavController navController) {
-        // Main panel with BoxLayout Y_AXIS
         menuPanel = new JPanel();
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
         menuPanel.setOpaque(false);
         menuPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
 
-        // Set fixed size for menu panel
         menuPanel.setPreferredSize(new Dimension(550, 700));
         menuPanel.setMaximumSize(new Dimension(550, 700));
         menuPanel.setMinimumSize(new Dimension(550, 700));
 
-        // Create and add the top panel with BorderLayout
         JPanel topPanel = createTopPanel(navController);
-
-        // Create and add the bottom panel with BoxLayout
         JPanel bottomPanel = createBottomPanel(navController);
 
-        // Add panels to the main panel
         menuPanel.add(topPanel);
         menuPanel.add(bottomPanel);
 
-        // Initial update for button states based on starting player count
         updateButtonStates();
     }
 
     private JPanel createTopPanel(NavController navController) {
-        // Create top panel with gradient background
         JPanel topPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -102,17 +101,14 @@ public class MuGameSetupPanel extends JPanel {
 
         topPanel.setPreferredSize(new Dimension(500, 200));
 
-        // Use a layered approach - one layer for the logo, one for the button
         MuLayeredPane layeredPane = new MuLayeredPane();
         layeredPane.setPreferredSize(new Dimension(500, 200));
 
-        // Create back button
         MuOutlinedButton backButton = new MuOutlinedButton("\u2190", MuColors.MuYellow, Color.BLACK, 16, 60, 40, 2,
                 Color.black);
-        backButton.setBounds(15, 15, 60, 40); // Position at top-left with some margin
+        backButton.setBounds(15, 15, 60, 40);
         backButton.addActionListener(e -> navController.goBackToMenu());
 
-        // Create and center the JUNO logo
         MuImageIcon originalIcon = new MuImageIcon("src/main/resources/assets/JUNO.png");
         MuLabel logoLabel;
 
@@ -129,14 +125,12 @@ public class MuGameSetupPanel extends JPanel {
             logoLabel = new MuLabel(scaledIcon);
         }
 
-        // Center logo in the panel
         int logoWidth = 175;
         int logoHeight = 175;
         logoLabel.setBounds((500 - logoWidth + 50) / 2, (200 - logoHeight + 50) / 2, logoWidth, logoHeight);
 
-        // Add components to layered pane with different z-order
-        layeredPane.add(logoLabel, Integer.valueOf(0)); // Background layer
-        layeredPane.add(backButton, Integer.valueOf(1)); // Foreground layer
+        layeredPane.add(logoLabel, Integer.valueOf(0));
+        layeredPane.add(backButton, Integer.valueOf(1));
 
         topPanel.setLayout(new BorderLayout());
         topPanel.add(layeredPane, BorderLayout.CENTER);
@@ -145,17 +139,13 @@ public class MuGameSetupPanel extends JPanel {
     }
 
     private JPanel createBottomPanel(NavController navController) {
-        // Create bottom panel with BoxLayout Y_AXIS
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
         bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        // Initialize playerRows list
-        playerRows = new ArrayList<>();
+        playerRowComponentsList = new ArrayList<>();
 
-        // Create player section panel with BoxLayout Y_AXIS
-        // Store reference to playerSection
         playerSection = new JPanel();
         playerSection.setLayout(new BoxLayout(playerSection, BoxLayout.Y_AXIS));
         playerSection.setBackground(Color.WHITE);
@@ -163,36 +153,32 @@ public class MuGameSetupPanel extends JPanel {
         playerSection.setBorder(BorderFactory.createEmptyBorder(15, 30, 5, 30));
         playerSection.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // --- Create all player rows and add to list ---
-        MuPlayerPanel player1 = new MuPlayerPanel(MuColors.MuRed, "Player 1 name");
+        MuPlayerPanel player1Panel = new MuPlayerPanel(MuColors.MuRed, "Player 1 name");
         MuCheckBox player1BotCheck = new MuCheckBox("Bot");
         player1BotCheck.setOpaque(false);
-        
-        JPanel player1Row = createPlayerRowPanel(player1, player1BotCheck);
-        playerRows.add(player1Row); // Add to list
+        JPanel player1Row = createPlayerRowPanel(player1Panel, player1BotCheck);
+        playerRowComponentsList.add(new PlayerRowComponents(player1Panel, player1BotCheck, player1Row));
 
-        MuPlayerPanel player2 = new MuPlayerPanel(MuColors.MuBlue, "Player 2 name");
+        MuPlayerPanel player2Panel = new MuPlayerPanel(MuColors.MuBlue, "Player 2 name");
         MuCheckBox player2BotCheck = new MuCheckBox("Bot");
         player2BotCheck.setOpaque(false);
-        JPanel player2Row = createPlayerRowPanel(player2, player2BotCheck);
-        playerRows.add(player2Row); // Add to list
+        JPanel player2Row = createPlayerRowPanel(player2Panel, player2BotCheck);
+        playerRowComponentsList.add(new PlayerRowComponents(player2Panel, player2BotCheck, player2Row));
 
-        MuPlayerPanel player3 = new MuPlayerPanel(MuColors.MuGreen, "Player 3 name");
+        MuPlayerPanel player3Panel = new MuPlayerPanel(MuColors.MuGreen, "Player 3 name");
         MuCheckBox player3BotCheck = new MuCheckBox("Bot");
         player3BotCheck.setOpaque(false);
-        JPanel player3Row = createPlayerRowPanel(player3, player3BotCheck);
-        playerRows.add(player3Row); // Add to list
+        JPanel player3Row = createPlayerRowPanel(player3Panel, player3BotCheck);
+        playerRowComponentsList.add(new PlayerRowComponents(player3Panel, player3BotCheck, player3Row));
 
-        MuPlayerPanel player4 = new MuPlayerPanel(MuColors.MuYellow, "Player 4 name"); // Changed color for uniqueness
+        MuPlayerPanel player4Panel = new MuPlayerPanel(MuColors.MuYellow, "Player 4 name");
         MuCheckBox player4BotCheck = new MuCheckBox("Bot");
         player4BotCheck.setOpaque(false);
-        JPanel player4Row = createPlayerRowPanel(player4, player4BotCheck);
-        playerRows.add(player4Row); // Add to list
+        JPanel player4Row = createPlayerRowPanel(player4Panel, player4BotCheck);
+        playerRowComponentsList.add(new PlayerRowComponents(player4Panel, player4BotCheck, player4Row));
 
-        // --- Update player section view initially ---
-        updatePlayerSectionView(); // Add initial players to the view
+        updatePlayerSectionView();
 
-        // Create Add/Remove panel with BorderLayout for left/right alignment
         JPanel addRemovePanel = new JPanel();
         addRemovePanel.setLayout(new BorderLayout());
         addRemovePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -200,15 +186,12 @@ public class MuGameSetupPanel extends JPanel {
         addRemovePanel.setPreferredSize(new Dimension(600, 60));
         addRemovePanel.setBackground(Color.WHITE);
 
-        // Create left button - Store reference
         addButton = new MuFilledButton("+  Add Player", MuColors.MuGreen, Color.WHITE, 16, 140, 45);
-        addButton.addActionListener(e -> addPlayer()); // Add listener
+        addButton.addActionListener(e -> addPlayer());
 
-        // Create right button - Store reference
         removeButton = new MuFilledButton("-  Remove", MuColors.MuRed, Color.WHITE, 16, 140, 45);
-        removeButton.addActionListener(e -> removePlayer()); // Add listener
+        removeButton.addActionListener(e -> removePlayer());
 
-        // Create left and right panels to hold buttons
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 20, 7));
         leftPanel.setOpaque(false);
         leftPanel.add(addButton);
@@ -217,24 +200,23 @@ public class MuGameSetupPanel extends JPanel {
         rightPanel.setOpaque(false);
         rightPanel.add(removeButton);
 
-        // Add panels to the main panel using BorderLayout
         addRemovePanel.add(leftPanel, BorderLayout.WEST);
         addRemovePanel.add(rightPanel, BorderLayout.EAST);
 
-        // Create Start Game panel with FlowLayout
         JPanel startGamePanel = new JPanel();
         startGamePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         startGamePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         startGamePanel.setBackground(Color.WHITE);
         startGamePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        // Add Start Game button
         MuFilledButton startGameButton = new MuFilledButton("Start Game", MuColors.MuYellow, Color.black, 16, 420, 50,
                 1, Color.black);
-        startGameButton.addActionListener(e -> navController.showGamePlay());
+        startGameButton.addActionListener(e -> {
+            List<PlayerConfig> playerConfigs = getPlayerConfigs();
+            navController.startGame(playerConfigs);
+        });
         startGamePanel.add(startGameButton);
 
-        // Add all sections to bottom panel
         bottomPanel.add(playerSection);
         bottomPanel.add(addRemovePanel);
         bottomPanel.add(startGamePanel);
@@ -242,21 +224,24 @@ public class MuGameSetupPanel extends JPanel {
         return bottomPanel;
     }
 
-    // Method to update the visible player rows in the playerSection
     private void updatePlayerSectionView() {
-        playerSection.removeAll(); // Clear current rows
+        playerSection.removeAll();
         for (int i = 0; i < currentPlayerCount; i++) {
-            playerSection.add(playerRows.get(i));
-            // Add spacing only if it's not the last player row being added in this update
+            playerSection.add(playerRowComponentsList.get(i).rowPanel);
             if (i < currentPlayerCount - 1 || currentPlayerCount < MAX_PLAYERS) {
                 playerSection.add(MuBox.createVerticalStrut(15));
             }
+        }
+        for (int i = currentPlayerCount; i < MAX_PLAYERS; i++) {
+            playerRowComponentsList.get(i).rowPanel.setVisible(false);
+        }
+        for (int i = 0; i < currentPlayerCount; i++) {
+            playerRowComponentsList.get(i).rowPanel.setVisible(true);
         }
         playerSection.revalidate();
         playerSection.repaint();
     }
 
-    // Method to handle adding a player
     private void addPlayer() {
         if (currentPlayerCount < MAX_PLAYERS) {
             currentPlayerCount++;
@@ -265,7 +250,6 @@ public class MuGameSetupPanel extends JPanel {
         }
     }
 
-    // Method to handle removing a player
     private void removePlayer() {
         if (currentPlayerCount > MIN_PLAYERS) {
             currentPlayerCount--;
@@ -274,7 +258,6 @@ public class MuGameSetupPanel extends JPanel {
         }
     }
 
-    // Method to update the enabled state and appearance of add/remove buttons
     private void updateButtonStates() {
         boolean canAdd = currentPlayerCount < MAX_PLAYERS;
         boolean canRemove = currentPlayerCount > MIN_PLAYERS;
@@ -282,7 +265,6 @@ public class MuGameSetupPanel extends JPanel {
         addButton.setEnabled(canAdd);
         removeButton.setEnabled(canRemove);
 
-        // Change appearance when disabled
         addButton.setBackground(canAdd ? MuColors.MuGreen : Color.LIGHT_GRAY);
         addButton.setForeground(canAdd ? Color.WHITE : Color.DARK_GRAY);
 
@@ -291,10 +273,9 @@ public class MuGameSetupPanel extends JPanel {
     }
 
     private JPanel createPlayerRowPanel(MuPlayerPanel playerPanel, MuCheckBox checkBox) {
-        JPanel rowPanel = new JPanel(new BorderLayout(10, 0)); // BorderLayout with horizontal gap
-        rowPanel.setBackground(Color.WHITE); // Match background
+        JPanel rowPanel = new JPanel(new BorderLayout(10, 0));
+        rowPanel.setBackground(Color.WHITE);
         rowPanel.setOpaque(true);
-        // Ensure the row takes the width but doesn't stretch vertically unnecessarily
         rowPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, playerPanel.getPreferredSize().height));
 
         rowPanel.add(playerPanel, BorderLayout.CENTER);
@@ -302,4 +283,18 @@ public class MuGameSetupPanel extends JPanel {
         return rowPanel;
     }
 
+    public List<PlayerConfig> getPlayerConfigs() {
+        List<PlayerConfig> configs = new ArrayList<>();
+        for (int i = 0; i < currentPlayerCount; i++) {
+            PlayerRowComponents components = playerRowComponentsList.get(i);
+            String name = components.playerPanel.getPlayerName();
+            if (name == null || name.trim().isEmpty()) {
+                name = components.playerPanel.getNameField().getPlaceholder();
+            }
+            boolean isBot = components.botCheckBox.isSelected();
+            Color color = components.playerPanel.getPlayerColor();
+            configs.add(new PlayerConfig(name, isBot, color));
+        }
+        return configs;
+    }
 }

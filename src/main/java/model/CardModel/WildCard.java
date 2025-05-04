@@ -13,6 +13,14 @@ public class WildCard extends AbstractCard {
     public void setChosenColor(CardColorEnum chosenColor) {
         this.chosenColor = chosenColor;
     }
+    
+    /**
+     * Returns the chosen color for this wild card
+     * @return The chosen color or null if not yet chosen
+     */
+    public CardColorEnum getChosenColor() {
+        return this.chosenColor;
+    }
 
     @Override
     public CardColorEnum getColor() {

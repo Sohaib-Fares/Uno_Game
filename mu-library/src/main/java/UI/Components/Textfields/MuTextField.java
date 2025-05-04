@@ -177,6 +177,15 @@ public class MuTextField extends JTextField {
     }
     
     /**
+     * Gets the placeholder text configured for this field.
+     *
+     * @return The placeholder text
+     */
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    /**
      * Sets the placeholder text for this text field.
      * 
      * @param placeholder The placeholder text to use

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
+import controllers.GameController; // Import GameController
 import controllers.NavController;
 import view.MuMainFrame;
 
@@ -15,8 +16,12 @@ public class App {
             // 2. Create Navigation Controller
             NavController navController = new NavController(mainFrame);
 
-            // 3. Inject NavController into the View
+            // 3. Create Game Controller (and potentially others)
+            GameController gameController = new GameController(navController);
+
+            // 4. Inject Controllers into the View
             mainFrame.setNavController(navController);
+            mainFrame.setGameController(gameController); // Add method to set GameController
 
             // --- Instantiate other Controllers (Game, Setup) and Model here ---
             // GameState gameState = new GameState();
@@ -29,7 +34,7 @@ public class App {
             // mainFrame.getSetupPanel().setSetupController(setupController); // Example
             // mainFrame.getGamePanel().setGameController(gameController); // Example
 
-            // 4. Make the main frame visible
+            // 5. Make the main frame visible
             mainFrame.pack(); // Adjust size
             mainFrame.setLocationRelativeTo(null); // Center
             mainFrame.setVisible(true);
