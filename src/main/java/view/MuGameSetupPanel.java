@@ -1,14 +1,13 @@
-package UI;
+package view;
 
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import UI.MuCheckBox;
 import UI.Components.Buttons.MuFilledButton;
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Containers.MuLayeredPane;
@@ -17,6 +16,7 @@ import UI.Components.Misc.MuBox;
 import UI.Components.Misc.MuImageIcon;
 import UI.Components.Panels.MuPlayerPanel;
 import UI.Constatnts.MuColors;
+import controllers.NavController;
 
 public class MuGameSetupPanel extends JPanel {
 
@@ -29,7 +29,7 @@ public class MuGameSetupPanel extends JPanel {
     private final int MIN_PLAYERS = 2;
     private final int MAX_PLAYERS = 4;
 
-    public MuGameSetupPanel(MuMainFrame mainFrame) {
+    public MuGameSetupPanel(NavController navController) {
         // Setup frame properties
         super.setSize(900, 900);
         // Create background panel with radial gradient
@@ -37,7 +37,7 @@ public class MuGameSetupPanel extends JPanel {
         setLayout(new GridBagLayout());
 
         // Create the main menu panel
-        createMenuPanel(mainFrame);
+        createMenuPanel(navController);
 
         // Add the menu panel to the background using GridBagLayout for centering
         GridBagConstraints gbc = new GridBagConstraints();
@@ -50,7 +50,7 @@ public class MuGameSetupPanel extends JPanel {
         setOpaque(false);
     }
 
-    private void createMenuPanel(MuMainFrame mainFrame) {
+    private void createMenuPanel(NavController navController) {
         // Main panel with BoxLayout Y_AXIS
         menuPanel = new JPanel();
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
@@ -63,10 +63,10 @@ public class MuGameSetupPanel extends JPanel {
         menuPanel.setMinimumSize(new Dimension(550, 700));
 
         // Create and add the top panel with BorderLayout
-        JPanel topPanel = createTopPanel(mainFrame);
+        JPanel topPanel = createTopPanel(navController);
 
         // Create and add the bottom panel with BoxLayout
-        JPanel bottomPanel = createBottomPanel(mainFrame);
+        JPanel bottomPanel = createBottomPanel(navController);
 
         // Add panels to the main panel
         menuPanel.add(topPanel);
@@ -76,7 +76,7 @@ public class MuGameSetupPanel extends JPanel {
         updateButtonStates();
     }
 
-    private JPanel createTopPanel(MuMainFrame mainFrame) {
+    private JPanel createTopPanel(NavController navController) {
         // Create top panel with gradient background
         JPanel topPanel = new JPanel() {
             @Override
@@ -110,14 +110,14 @@ public class MuGameSetupPanel extends JPanel {
         MuOutlinedButton backButton = new MuOutlinedButton("\u2190", MuColors.MuYellow, Color.BLACK, 16, 60, 40, 2,
                 Color.black);
         backButton.setBounds(15, 15, 60, 40); // Position at top-left with some margin
-        backButton.addActionListener(e -> mainFrame.switchToPanel(MuMainFrame.MENU_PANEL));
+        backButton.addActionListener(e -> navController.goBackToMenu());
 
         // Create and center the JUNO logo
-        MuImageIcon originalIcon = new MuImageIcon("src/main/java/UI/Assets/JUNO.png");
+        MuImageIcon originalIcon = new MuImageIcon("src/main/resources/assets/JUNO.png");
         MuLabel logoLabel;
 
         if (originalIcon.getIconWidth() == -1) {
-            System.err.println("Warning: Could not load image icon at src/main/java/UI/Assets/JUNO.png");
+            System.err.println("Warning: Could not load image icon at src/main/resources/assets/JUNO.png");
             logoLabel = new MuLabel("JUNO Logo Missing");
             logoLabel.setForeground(Color.WHITE);
         } else {
@@ -144,7 +144,7 @@ public class MuGameSetupPanel extends JPanel {
         return topPanel;
     }
 
-    private JPanel createBottomPanel(MuMainFrame mainFrame) {
+    private JPanel createBottomPanel(NavController navController) {
         // Create bottom panel with BoxLayout Y_AXIS
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
@@ -230,7 +230,7 @@ public class MuGameSetupPanel extends JPanel {
         // Add Start Game button
         MuFilledButton startGameButton = new MuFilledButton("Start Game", MuColors.MuYellow, Color.black, 16, 420, 50,
                 1, Color.black);
-        startGameButton.addActionListener(e -> mainFrame.switchToPanel(MuMainFrame.GAME_PLAY_PANEL));
+        startGameButton.addActionListener(e -> navController.showGamePlay());
         startGamePanel.add(startGameButton);
 
         // Add all sections to bottom panel
@@ -300,4 +300,5 @@ public class MuGameSetupPanel extends JPanel {
         rowPanel.add(checkBox, BorderLayout.EAST);
         return rowPanel;
     }
+
 }

@@ -1,4 +1,4 @@
-package UI;
+package view;
 
 import javax.swing.*;
 
@@ -9,6 +9,8 @@ import UI.Components.Misc.MuBox;
 import UI.Components.Panels.MuHeaderPanel;
 import UI.Components.Panels.MuVerticalListPanel;
 import UI.Constatnts.MuColors;
+import controllers.NavController;
+
 import java.awt.*;
 import java.awt.event.ActionEvent; // Import ActionEvent
 import java.awt.event.ActionListener; // Import ActionListener
@@ -16,10 +18,8 @@ import java.awt.geom.Point2D;
 
 public class MuMenuPanel extends JPanel {
 
-    private MuMainFrame mainFrame; // Reference to the main frame
 
-    public MuMenuPanel(MuMainFrame frame) { // Accept MuMainFrame in constructor
-        this.mainFrame = frame;
+    public MuMenuPanel(NavController navController) { // Accept MuMainFrame in constructor
 
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(550, 700)); // Keep preferred size
@@ -41,7 +41,7 @@ public class MuMenuPanel extends JPanel {
         topPanel.setMinimumSize(new Dimension(200 + 50, 200 + 50)); // Example: 250x250 logo + 25 padding each side
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         // Set preferred size based on desired logo size + padding
-        topPanel.setContentIcon("src/main/java/UI/Assets/JUNO.png", 250, 250);
+        topPanel.setContentIcon("src/main/resources/assets/JUNO.png", 250, 250);
 
         // --- Middle Panel (Buttons) ---
         JPanel middlePanel = new JPanel();
@@ -106,7 +106,7 @@ public class MuMenuPanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.switchToPanel(MuMainFrame.GAME_SETUP_PANEL); // Switch to game
+                navController.showGameSetup();
                 // setup view
                 System.out.println("Start Game Clicked - Implement GameSetupPanel"); // Placeholder
             }
@@ -116,24 +116,28 @@ public class MuMenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Switch to how-to-play view
-                mainFrame.switchToPanel(MuMainFrame.HOW_TO_PLAY_PANEL);
+
+                navController.showHowToPlay();
                 System.out.println("How to Play Clicked - Implement HowToPlayPanel"); // Placeholder
             }
         });
 
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Ask for confirmation before exiting
-                int confirmed = MuJOptionPane.showConfirmDialog(mainFrame, "Are you sure you want to exit?",
-                        "Exit Confirmation",
-                        JOptionPane.YES_NO_OPTION);
+        // exitButton.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // // Ask for confirmation before exiting
+        // int confirmed = MuJOptionPane.showConfirmDialog(mainFrame, "Are you sure you
+        // want to exit?",
+        // "Exit Confirmation",
+        // JOptionPane.YES_NO_OPTION);
 
-                if (confirmed == MuJOptionPane.YES_OPTION) {
-                    mainFrame.dispose(); // Close the window
-                    System.exit(0); // Terminate the application
-                }
-            }
-        });
+        // if (confirmed == MuJOptionPane.YES_OPTION) {
+        // mainFrame.dispose(); // Close the window
+        // System.exit(0); // Terminate the application
+        // }
+        // }
+        // });
+
+        exitButton.addActionListener(e -> System.exit(0));
     }
 }

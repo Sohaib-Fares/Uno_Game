@@ -3,12 +3,12 @@ package AppService.Game;
 import java.util.Random;
 import java.util.Scanner;
 
-import AppService.CardModel.CardColorEnum;
-import AppService.CardModel.WildCard;
 import AppService.Game.Screens.PlayerSetupScreen;
-import AppService.PlayerModel.BotPlayer;
-import AppService.PlayerModel.HumanPlayer;
-import AppService.PlayerModel.Player;
+import model.CardModel.CardColorEnum;
+import model.CardModel.WildCard;
+import model.PlayerModel.BotPlayer;
+import model.PlayerModel.HumanPlayer;
+import model.PlayerModel.Player;
 
 public class CardsEffect {
 

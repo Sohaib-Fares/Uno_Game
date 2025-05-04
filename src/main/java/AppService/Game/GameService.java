@@ -6,21 +6,21 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-import AppService.CardModel.AbstractCard;
-import AppService.CardModel.ActionCard;
-import AppService.CardModel.CardColorEnum;
-import AppService.CardModel.CardTypeEnum;
-import AppService.CardModel.WildCard;
-import AppService.Deck.Deck;
 import AppService.Game.Screens.GameOverScreen;
 import AppService.Game.Screens.HowToPlayScreen;
 import AppService.Game.Screens.PlayerSetupScreen;
 import AppService.Game.Screens.RunningGameScreen;
 import AppService.Game.Screens.WelcomeScreen;
 import AppService.OurUtils.Utils;
-import AppService.PlayerModel.BotPlayer;
-import AppService.PlayerModel.HumanPlayer;
-import AppService.PlayerModel.Player;
+import model.CardModel.AbstractCard;
+import model.CardModel.ActionCard;
+import model.CardModel.CardColorEnum;
+import model.CardModel.CardTypeEnum;
+import model.CardModel.WildCard;
+import model.Deck.Deck;
+import model.PlayerModel.BotPlayer;
+import model.PlayerModel.HumanPlayer;
+import model.PlayerModel.Player;
 
 public class GameService {
     private Deck deck = new Deck();

@@ -1,4 +1,4 @@
-package UI.MuGamePlayPanels;
+package view.MuGamePlayPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,14 +8,16 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import UI.MuMainFrame;
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Labels.MuLabel;
 import UI.Components.Misc.MuImageIcon;
 import UI.Components.Panels.MuPanel;
+import controllers.NavController;
 
 public class TopBarPanel extends JPanel {
-        public TopBarPanel(MuMainFrame mainFrame) {
+
+        public TopBarPanel(NavController navController) {
+
                 setBackground(new Color(0x80461b));
                 setPreferredSize(new Dimension(1000, 90));
                 setLayout(new BorderLayout());
@@ -31,7 +33,7 @@ public class TopBarPanel extends JPanel {
                                 35,
                                 1,
                                 Color.BLACK);
-                menuButton.addActionListener(e -> mainFrame.switchToPanel(MuMainFrame.GAME_SETUP_PANEL));
+                menuButton.addActionListener(e -> navController.showGameSetup());
 
                 MuPanel leftPanel = new MuPanel();
                 leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 28));
@@ -42,7 +44,7 @@ public class TopBarPanel extends JPanel {
                 // Center icon
                 MuLabel imagelabel;
                 MuImageIcon imageicon = new MuImageIcon(
-                                "src/main/java/UI/Assets/JUNO.png");
+                                "src/main/resources/assets/JUNO.png");
                 Image scaledImage = imageicon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
                 imagelabel = new MuLabel();
                 imagelabel.setIcon(new MuImageIcon(scaledImage));

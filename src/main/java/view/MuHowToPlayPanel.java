@@ -1,6 +1,7 @@
-package UI;
+package view;
 
 import UI.Constatnts.MuColors;
+import controllers.NavController;
 import UI.Components.Buttons.MuOutlinedButton;
 import UI.Components.Cards.MuNumberedCard;
 import UI.Components.Cards.MuWildCard;
@@ -91,7 +92,9 @@ public class MuHowToPlayPanel extends JPanel {
                 return scrollPane;
         }
 
-        public MuHowToPlayPanel(MuMainFrame mainFrame) {
+
+        public MuHowToPlayPanel(NavController navController) {
+
                 setLayout(new GridBagLayout());
                 GridBagConstraints gbc = new GridBagConstraints();
                 setOpaque(false);
@@ -125,7 +128,7 @@ public class MuHowToPlayPanel extends JPanel {
 
                 MuOutlinedButton backButton = new MuOutlinedButton("Back", MuColors.MuYellow, Color.BLACK, 20, 80, 80,
                                 3, MuColors.black);
-                backButton.addActionListener(e -> mainFrame.switchToPanel(MuMainFrame.MENU_PANEL));
+                backButton.addActionListener(e -> navController.showMainMenu());
                 backButton.setPreferredSize(new Dimension(100, 70));
 
                 headGbc.gridx = 0;
@@ -138,7 +141,7 @@ public class MuHowToPlayPanel extends JPanel {
                 headPanel.add(backButton, headGbc);
 
                 MuLabel JUNO;
-                MuImageIcon originalIcon = new MuImageIcon("src/main/java/UI/Assets/JUNO.png");
+                MuImageIcon originalIcon = new MuImageIcon("src/main/resources/assets/JUNO.png");
                 Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 JUNO = new MuLabel(new MuImageIcon(scaledImage));
 
@@ -442,5 +445,6 @@ public class MuHowToPlayPanel extends JPanel {
                 return rowPanel;
 
         }
+
 
 }

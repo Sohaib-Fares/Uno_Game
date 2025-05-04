@@ -1,4 +1,4 @@
-package AppService.CardModel;
+package model.CardModel;
 
 public enum CardColorEnum {
     RED,

@@ -1,10 +1,10 @@
-package AppService.Deck;
+package model.Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
-import AppService.CardModel.*;
+import model.CardModel.*;
 
 public class Deck {
 

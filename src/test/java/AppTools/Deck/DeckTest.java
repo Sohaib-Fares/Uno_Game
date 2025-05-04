@@ -2,7 +2,7 @@ package AppTools.Deck;
 
 import org.junit.jupiter.api.Test;
 
-import AppService.Deck.Deck;
+import model.Deck.Deck;
 
 
 class DeckTest {

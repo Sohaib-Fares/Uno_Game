@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets; // Import Insets
 import java.awt.Dimension; // Import Dimension
+import java.net.URL; // Import URL
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,22 +56,32 @@ public class MuHeaderPanel extends MuGradientPanel { // Inherits gradient backgr
     }
 
     /**
-     * Sets the main content to be a scaled image icon.
-     * 
-     * @param iconPath Path to the image file.
-     * @param width    Desired width for the scaled image.
-     * @param height   Desired height for the scaled image.
+     * Sets the main content to be a scaled image icon loaded from classpath
+     * resources.
+     *
+     * @param resourcePath Path to the image file within the resources folder (e.g.,
+     *                     "src/main/resources/assets/JUNO.png").
+     * @param width        Desired width for the scaled image.
+     * @param height       Desired height for the scaled image.
      */
-    public void setContentIcon(String iconPath, int width, int height) {
-        MuImageIcon originalIcon = new MuImageIcon(iconPath);
-        if (originalIcon.getIconWidth() != -1) {
-            Image scaledImage = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            contentLabel.setIcon(new MuImageIcon(scaledImage));
-            contentLabel.setText(null); // Clear any text
+    public void setContentIcon(String resourcePath, int width, int height) {
+        URL iconURL = getClass().getResource(resourcePath); // Use getResource
+        if (iconURL != null) {
+            MuImageIcon originalIcon = new MuImageIcon(iconURL); // Load from URL
+            if (originalIcon.getIconWidth() != -1) { // Check if loaded successfully
+                Image scaledImage = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                contentLabel.setIcon(new MuImageIcon(scaledImage));
+                contentLabel.setText(null); // Clear any text
+            } else {
+                // This case might not be reached if getResource returns null, but good practice
+                contentLabel.setIcon(null);
+                contentLabel.setText("Icon Load Error");
+                System.err.println("Warning: ImageIcon could not process the resource at " + resourcePath);
+            }
         } else {
             contentLabel.setIcon(null);
-            contentLabel.setText("Icon Error"); // Placeholder text
-            System.err.println("Warning: Could not load image icon at " + iconPath);
+            contentLabel.setText("Icon Not Found"); // Placeholder text
+            System.err.println("Warning: Could not find image resource at " + resourcePath);
         }
         // Preferred size might change, trigger layout update
         revalidate();

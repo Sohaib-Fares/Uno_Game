@@ -1,8 +1,8 @@
-package AppService.PlayerModel;
+package model.PlayerModel;
 
 import java.util.ArrayList;
 
-import AppService.CardModel.AbstractCard;
+import model.CardModel.AbstractCard;
 
 public abstract class Player {
 

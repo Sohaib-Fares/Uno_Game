@@ -3,13 +3,13 @@ package AppService.Game.Screens;
 import java.util.ArrayList;
 import java.util.List;
 
-import AppService.CardModel.AbstractCard;
-import AppService.Deck.Deck;
 import AppService.Game.Direction;
 import AppService.OurUtils.Utils;
-import AppService.PlayerModel.BotPlayer;
-import AppService.PlayerModel.HumanPlayer;
-import AppService.PlayerModel.Player;
+import model.CardModel.AbstractCard;
+import model.Deck.Deck;
+import model.PlayerModel.BotPlayer;
+import model.PlayerModel.HumanPlayer;
+import model.PlayerModel.Player;
 
 public class RunningGameScreen {
     public RunningGameScreen() {

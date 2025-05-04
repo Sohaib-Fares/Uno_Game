@@ -3,11 +3,11 @@ package AppService.Game.Screens;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import AppService.CardModel.AbstractCard;
-import AppService.Deck.Deck;
-import AppService.PlayerModel.BotPlayer;
-import AppService.PlayerModel.HumanPlayer;
-import AppService.PlayerModel.Player;
+import model.CardModel.AbstractCard;
+import model.Deck.Deck;
+import model.PlayerModel.BotPlayer;
+import model.PlayerModel.HumanPlayer;
+import model.PlayerModel.Player;
 
 public class PlayerSetupScreen {
 
